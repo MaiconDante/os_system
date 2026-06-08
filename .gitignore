@@ -1,5 +1,90 @@
-venv/
-__pycache__/
-*.pyc
+# --- CHAVES E CREDENCIAIS (Essencial para não vazar dados) ---
 .env
-instance/
+.env.local
+.env.*.local
+*.env
+secret.json
+secrets.yml
+config/secrets.yml
+auth.json
+*.pem
+*.key
+id_rsa*
+
+# --- ARQUIVOS DE CONFIGURAÇÃO E BANCO DE DADOS LOCAIS ---
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+*.log
+logs/
+*.sql
+*.sqlite-wal
+
+# --- ARQUIVOS DO SISTEMA OPERACIONAL ---
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# --- EDITORES DE CÓDIGO ---
+# VS Code
+.vscode/
+*.code-workspace
+.history/
+.ionide/
+
+# IntelliJ / JetBrains
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
+
+# Outros editores
+*.sublime-workspace
+*.sublime-project
+*.swp
+*.swo
+*~
+project.xcworkspace/
+xcuserdata/
+
+# --- DIRETÓRIOS DE DEPENDÊNCIAS E BUILDS ---
+node_modules/
+bower_components/
+jspm_packages/
+vendor/
+build/
+dist/
+out/
+target/
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+.pytest_cache/
+.coverage
+htmlcov/
+.cache/
+.gradle/
+.mvn/

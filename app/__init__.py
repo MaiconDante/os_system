@@ -8,6 +8,9 @@ from app.config import Config
 db = SQLAlchemy()
 migrate = Migrate()
 
+# Import models to ensure they are registered with SQLAlchemy
+from app.models.client_model import Client
+
 # Factory function to create the Flask application
 def create_app():
     app = Flask(__name__)

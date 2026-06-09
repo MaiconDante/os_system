@@ -27,12 +27,120 @@ Ordens de Serviço
         Nova Ordem
     </a>
 
+    <form
+        method="GET"
+        class="mb-4"
+    >
+
+        <div class="row g-2">
+
+            <div class="col-md-5">
+
+                <input
+                    type="text"
+                    name="search"
+                    class="form-control"
+                    placeholder="Buscar por título..."
+                    value="{{ search }}"
+                >
+
+            </div>
+
+
+            <div class="col-md-3">
+
+                <select
+                    name="status"
+                    class="form-select"
+                >
+
+                    <option value="">
+                        Todos Status
+                    </option>
+
+                    <option
+                        value="Aberto"
+                        {% if status == "Aberto" %}
+                        selected
+                        {% endif %}
+                    >
+                        Aberto
+                    </option>
+
+                    <option
+                        value="Em andamento"
+                        {% if status == "Em andamento" %}
+                        selected
+                        {% endif %}
+                    >
+                        Em andamento
+                    </option>
+
+                    <option
+                        value="Finalizado"
+                        {% if status == "Finalizado" %}
+                        selected
+                        {% endif %}
+                    >
+                        Finalizado
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="col-md-2">
+
+                <select
+                    name="sort"
+                    class="form-select"
+                >
+
+                    <option
+                        value="newest"
+                        {% if sort == "newest" %}
+                        selected
+                        {% endif %}
+                    >
+                        Recentes
+                    </option>
+
+                    <option
+                        value="oldest"
+                        {% if sort == "oldest" %}
+                        selected
+                        {% endif %}
+                    >
+                        Antigas
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="col-md-2 d-grid">
+
+                <button
+                    type="submit"
+                    class="btn btn-dark"
+                >
+                    Filtrar
+                </button>
+
+            </div>
+
+        </div>
+
+    </form>
+
 </div>
 
 
 <div class="table-container shadow-sm">
 
-    {% if orders %}
+    {% if orders.items %}
 
     <div class="table-responsive">
 
@@ -56,7 +164,7 @@ Ordens de Serviço
 
             <tbody>
 
-                {% for order in orders %}
+                {% for order in orders.items %}
 
                 <tr>
 
@@ -139,6 +247,44 @@ Ordens de Serviço
             </tbody>
 
         </table>
+
+        <nav class="mt-4">
+
+            <ul class="pagination justify-content-center">
+
+                {% for page_num in orders.iter_pages() %}
+
+                    {% if page_num %}
+
+                        <li
+                            class="page-item
+                            {% if page_num == orders.page %}
+                            active
+                            {% endif %}"
+                        >
+
+                            <a
+                                class="page-link"
+                                href="{{ url_for(
+                                    'order_service.index',
+                                    page=page_num,
+                                    search=search,
+                                    status=status,
+                                    sort=sort
+                                ) }}"
+                            >
+                                {{ page_num }}
+                            </a>
+
+                        </li>
+
+                    {% endif %}
+
+                {% endfor %}
+
+            </ul>
+
+        </nav>
 
     </div>
 

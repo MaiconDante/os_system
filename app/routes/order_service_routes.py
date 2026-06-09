@@ -21,13 +21,74 @@ order_service_bp = Blueprint(
 @order_service_bp.route("/")
 def index():
 
-    orders = OrderService.query.order_by(
-        OrderService.id.desc()
-    ).all()
+    page = request.args.get(
+        "page",
+        1,
+        type=int
+    )
+
+
+    search = request.args.get(
+        "search",
+        ""
+    ).strip()
+
+
+    status = request.args.get(
+        "status",
+        ""
+    ).strip()
+
+
+    sort = request.args.get(
+        "sort",
+        "newest"
+    )
+
+
+    query = OrderService.query
+
+
+    if search:
+
+        query = query.filter(
+            OrderService.title.ilike(
+                f"%{search}%"
+            )
+        )
+
+
+    if status:
+
+        query = query.filter(
+            OrderService.status == status
+        )
+
+
+    if sort == "oldest":
+
+        query = query.order_by(
+            OrderService.id.asc()
+        )
+
+    else:
+
+        query = query.order_by(
+            OrderService.id.desc()
+        )
+
+
+    orders = query.paginate(
+        page=page,
+        per_page=5
+    )
 
     return render_template(
         "orders/index.html",
-        orders=orders
+        orders=orders,
+        search=search,
+        status=status,
+        sort=sort
     )
 
 # Rota para criar uma nova ordem de serviço

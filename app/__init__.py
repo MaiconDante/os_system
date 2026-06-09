@@ -22,9 +22,12 @@ def create_app():
     # Register blueprints
     from app.routes.main_routes import main_bp
     from app.routes.clients_routes import client_bp
+    from app.routes.order_service_routes import order_service_bp
     # Register the main blueprint with the Flask app
     app.register_blueprint(main_bp)
     # Register the client blueprint with the Flask app
     app.register_blueprint(client_bp)
+    # Register the order service blueprint with the Flask app
+    app.register_blueprint(order_service_bp)
 
     return app

@@ -14,13 +14,13 @@ class Client(db.Model):
     phone = db.Column(db.String(20))
 
     # The email address of the client, which is an optional field (nullable=True)
-    email = db.Column(
-        db.String(120),
-        unique=True
-    )
+    email = db.Column(db.String(120), unique=True)
 
     # The date and time when the client record was created, with a default value of the current time
     created_at = db.Column(db.DateTime, server_default=db.func.now())
+
+    # Define a relationship to the OrderService model, allowing us to access a client's orders
+    orders = db.relationship("OrderService", backref="client", lazy=True)
 
     def __repr__(self):
         return f"<Client {self.name}>"

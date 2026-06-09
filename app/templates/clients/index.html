@@ -16,7 +16,7 @@ Clientes
 
         <form method="GET" class="mb-4">
 
-            <div class="row">
+            <div class="row g-2">
 
                 <div class="col-md-10">
 
@@ -37,6 +37,63 @@ Clientes
                         class="btn btn-dark"
                     >
                         Buscar
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+        <form method="GET" class="mb-4">
+
+            <div class="row g-2">
+
+                <div class="col-md-6">
+
+                    <select
+                        name="sort"
+                        class="form-select"
+                    >
+
+                        <option
+                            value="newest"
+                            {% if request.args.get('sort') == 'newest' %}
+                            selected
+                            {% endif %}
+                        >
+                            Mais recentes
+                        </option>
+
+                        <option
+                            value="oldest"
+                            {% if request.args.get('sort') == 'oldest' %}
+                            selected
+                            {% endif %}
+                        >
+                            Mais antigos
+                        </option>
+
+                        <option
+                            value="name"
+                            {% if request.args.get('sort') == 'name' %}
+                            selected
+                            {% endif %}
+                        >
+                            Nome
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-2 d-grid">
+
+                    <button
+                        type="submit"
+                        class="btn btn-dark"
+                    >
+                        Filtrar
                     </button>
 
                 </div>
@@ -106,25 +163,21 @@ Clientes
 
                             <a
                                 href="/clients/{{ client.id }}/edit"
-                                class="btn btn-sm btn-outline-warning"
+                                class="btn btn-sm btn-outline-info"
                             >
                                 Editar
                             </a>
 
-                            <form
-                                action="/clients/{{ client.id }}/delete"
-                                method="POST"
+                           <button
+                                type="button"
+                                class="btn btn-sm btn-outline-danger open-delete-modal"
+                                data-client-id="{{ client.id }}"
+                                data-client-name="{{ client.name }}"
+                                data-bs-toggle="modal"
+                                data-bs-target="#deleteModal"
                             >
-
-                                <button
-                                    type="submit"
-                                    class="btn btn-sm btn-outline-danger"
-                                    onclick="return confirm('Deseja excluir este cliente?')"
-                                >
-                                    Excluir
-                                </button>
-
-                            </form>
+                                Excluir
+                            </button>
 
                         </div>
 
@@ -211,16 +264,72 @@ Clientes
             Cadastre um novo cliente para começar.
         </p>
 
-        <a
-            href="/clients/create"
-            class="btn btn-primary mt-2"
-        >
-            Novo Cliente
-        </a>
-
     </div>
 
     {% endif %}
+
+</div>
+
+<div
+    class="modal fade"
+    id="deleteModal"
+    tabindex="-1"
+>
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+                    Confirmar exclusão
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                ></button>
+
+            </div>
+
+            <div class="modal-body">
+
+                Deseja realmente excluir o cliente?
+                <strong id="deleteClientName"></strong>?
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                >
+                    Cancelar
+                </button>
+
+                <form
+                    id="deleteForm"
+                    method="POST"
+                >
+
+                    <button
+                        type="submit"
+                        class="btn btn-danger"
+                    >
+                        Excluir
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 

@@ -53,3 +53,36 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
+const deleteButtons = document.querySelectorAll(
+    ".open-delete-modal"
+);
+
+
+const deleteForm = document.getElementById(
+    "deleteForm"
+);
+
+
+const deleteClientName = document.getElementById(
+    "deleteClientName"
+);
+
+
+deleteButtons.forEach((button) => {
+
+    button.addEventListener("click", () => {
+
+        const clientId = button.dataset.clientId;
+
+        const clientName = button.dataset.clientName;
+
+
+        deleteClientName.textContent = clientName;
+
+
+        deleteForm.action = `/clients/${clientId}/delete`;
+
+    });
+
+});

@@ -34,12 +34,43 @@ body {
     gap: 8px;
 }
 
+.action-buttons .btn {
+    min-width: 85px;
+}
+
 .pagination .page-link {
     border-radius: 8px;
     margin: 0 3px;
 }
 
-thead > tr > th {
-    background-color: #023266 !important;
-    color: white !important;
+.table {
+    margin-bottom: 0;
+}
+
+.table thead th {
+    background-color: #023266;
+    border-bottom: 2px solid #dee2e6;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: white;
+}
+
+.table tbody tr {
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.table tbody tr:hover {
+    background-color: #f1f3f5;
+    box-shadow: inset 4px 0 0 #012863;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.table-container {
+    background-color: white;
+    border-radius: 14px;
+    overflow: hidden;
 }

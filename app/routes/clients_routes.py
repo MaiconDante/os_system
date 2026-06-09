@@ -25,6 +25,9 @@ def index():
     # Obtendo o parâmetro de busca da query string, removendo espaços em branco extras
     search = request.args.get("search", "").strip()
 
+    # Obtendo o parâmetro de ordenação da query string, com valor padrão "newest"
+    sort = request.args.get("sort", "newest")
+
     query = Client.query
 
     if search:
@@ -42,9 +45,26 @@ def index():
         type=int
     )
 
-    clients = query.order_by(
-        Client.id.desc()
-    ).paginate(
+    if sort == "name":
+
+        query = query.order_by(
+            Client.name.asc()
+        )
+
+    elif sort == "oldest":
+
+        query = query.order_by(
+            Client.id.asc()
+        )
+
+    else:
+
+        query = query.order_by(
+            Client.id.desc()
+        )
+
+
+    clients = query.paginate(
         page=page,
         per_page=5
     )

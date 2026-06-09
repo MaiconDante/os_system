@@ -6,75 +6,110 @@ Clientes
 
 {% block content %}
 
-<div class="d-flex justify-content-between align-items-center mb-2">
+<div class="d-flex justify-content-between align-items-center mb-4">
 
-    <h1>Clientes</h1>
+    <div>
 
-    <a href="/clients/create" class="btn btn-primary">
+        <h1 class="page-title">
+            Clientes
+        </h1>
+
+        <p class="text-muted">
+            Gerencie os clientes cadastrados no sistema.
+        </p>
+
+    </div>
+
+    <a
+        href="/clients/create"
+        class="btn btn-primary"
+    >
         Novo Cliente
     </a>
 
 </div>
 
-{% if clients %}
 
-<table class="table table-striped">
+<div class="table-container shadow-sm">
 
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Telefone</th>
-            <th>Email</th>
-            <th>Ações</th> 
-        </tr>
-    </thead>
+    {% if clients %}
 
-    <tbody>
+    <table class="table align-middle">
 
-        {% for client in clients %}
+        <thead>
 
-        <tr>
-            <td>{{ client.id }}</td>
-            <td>{{ client.name }}</td>
-            <td>{{ client.phone }}</td>
-            <td>{{ client.email }}</td>
-            <td>
-                <a
-                    href="/clients/{{ client.id }}/edit"
-                    class="btn btn-sm btn-warning"
-                >
-                    Editar
-                </a>
-            </td>
-            <td>
-                <form
-                    action="/clients/{{ client.id }}/delete"
-                    method="POST"
-                    class="d-inline"
-                >
-                    <button
-                        type="submit"
-                        class="btn btn-sm btn-danger"
-                    >
-                        Excluir
-                    </button>
-                </form>
-            </td>
-        </tr>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>E-mail</th>
+                <th>Ações</th>
+            </tr>
 
-        {% endfor %}
+        </thead>
 
-    </tbody>
+        <tbody>
 
-</table>
+            {% for client in clients %}
 
-{% else %}
+            <tr>
 
-<div class="alert alert-info">
-    Nenhum cliente cadastrado.
+                <td>{{ client.id }}</td>
+
+                <td>
+                    <strong>{{ client.name }}</strong>
+                </td>
+
+                <td>{{ client.phone }}</td>
+
+                <td>{{ client.email }}</td>
+
+                <td>
+
+                    <div class="action-buttons">
+
+                        <a
+                            href="/clients/{{ client.id }}/edit"
+                            class="btn btn-sm btn-warning"
+                        >
+                            Editar
+                        </a>
+
+                        <form
+                            action="/clients/{{ client.id }}/delete"
+                            method="POST"
+                        >
+
+                            <button
+                                type="submit"
+                                class="btn btn-sm btn-danger"
+                                onclick="return confirm('Deseja excluir este cliente?')"
+                            >
+                                Excluir
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    {% else %}
+
+    <div class="alert alert-info mb-0">
+        Nenhum cliente cadastrado.
+    </div>
+
+    {% endif %}
+
 </div>
-
-{% endif %}
 
 {% endblock %}

@@ -1,0 +1,35 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f5f7fa;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.page-title {
+    font-weight: 700;
+    color: #212529;
+}
+
+.card-custom {
+    border: none;
+    border-radius: 12px;
+}
+
+.table-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}

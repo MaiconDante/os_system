@@ -6,14 +6,29 @@ Home
 
 {% block content %}
 
-<div class="p-5 mb-4 bg-light rounded-3">
-    <h1 class="display-5 fw-bold">
-        Sistema de Ordem de Serviço
-    </h1>
+<div class="card card-custom shadow-sm">
 
-    <p class="lead">
-        Projeto desenvolvido com Flask e PostgreSQL.
-    </p>
+    <div class="card-body p-5">
+
+        <h1 class="display-5 fw-bold">
+            Sistema de Ordem de Serviço
+        </h1>
+
+        <p class="lead text-muted mt-3">
+            Projeto desenvolvido com Flask, PostgreSQL e Bootstrap.
+        </p>
+
+        <hr>
+
+        <a
+            href="/clients"
+            class="btn btn-primary btn-lg"
+        >
+            Gerenciar Clientes
+        </a>
+
+    </div>
+
 </div>
 
 {% endblock %}

@@ -12,6 +12,8 @@ from sqlalchemy import or_
 from app import db
 from app.models.client_model import Client
 
+from flask_login import login_required
+
 # Blueprint para as rotas de clientes
 client_bp = Blueprint(
     "client",
@@ -21,6 +23,7 @@ client_bp = Blueprint(
 
 # Rota para listar os clientes
 @client_bp.route("/")
+@login_required
 def index():
     # Obtendo o parâmetro de busca da query string, removendo espaços em branco extras
     search = request.args.get("search", "").strip()
@@ -76,6 +79,7 @@ def index():
 
 # Rota para criar um novo cliente
 @client_bp.route("/create", methods=["GET", "POST"])
+@login_required
 def create():
     # Verificando se o método da requisição é POST para processar o formulário de criação
     if request.method == "POST":
@@ -133,6 +137,7 @@ def create():
 
 # Rota para editar um cliente existente
 @client_bp.route("/<int:client_id>/edit", methods=["GET", "POST"])
+@login_required
 def edit(client_id):
     # Consultando o cliente pelo ID, retornando um erro 404 se não for encontrado
     client = Client.query.get_or_404(client_id)
@@ -203,6 +208,7 @@ def edit(client_id):
 
 # Rota para deletar um cliente
 @client_bp.route("/<int:client_id>/delete", methods=["POST"])
+@login_required
 def delete(client_id):
 
     client = Client.query.get_or_404(client_id)

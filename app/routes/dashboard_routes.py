@@ -9,6 +9,8 @@ from app.models.order_service_model import (
     OrderService
 )
 
+from flask_login import login_required
+
 
 dashboard_bp = Blueprint(
     "dashboard",
@@ -17,6 +19,7 @@ dashboard_bp = Blueprint(
 
 
 @dashboard_bp.route("/dashboard")
+@login_required
 def home():
 
     total_clients = Client.query.count()

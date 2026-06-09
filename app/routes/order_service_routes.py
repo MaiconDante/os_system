@@ -10,6 +10,8 @@ from app import db
 from app.models.order_service_model import OrderService
 from app.models.client_model import Client
 
+from flask_login import login_required
+
 # Blueprint para o módulo de ordem de serviço
 order_service_bp = Blueprint(
     "order_service",
@@ -19,6 +21,7 @@ order_service_bp = Blueprint(
 
 # Rota para exibir a lista de ordens de serviço
 @order_service_bp.route("/")
+@login_required
 def index():
 
     page = request.args.get(
@@ -96,6 +99,7 @@ def index():
     "/create",
     methods=["GET", "POST"]
 )
+@login_required
 def create():
 
     clients = Client.query.order_by(
@@ -177,6 +181,7 @@ def create():
     "/<int:order_id>/edit",
     methods=["GET", "POST"]
 )
+@login_required
 def edit(order_id):
 
     order = OrderService.query.get_or_404(
@@ -255,6 +260,7 @@ def edit(order_id):
     "/<int:order_id>/delete",
     methods=["POST"]
 )
+@login_required
 def delete(order_id):
 
     order = OrderService.query.get_or_404(

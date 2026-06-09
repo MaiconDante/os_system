@@ -91,3 +91,5 @@ htmlcov/
 .cache/
 .gradle/
 .mvn/
+
+create_admin.py

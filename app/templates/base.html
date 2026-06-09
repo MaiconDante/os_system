@@ -23,6 +23,24 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
 
+        {% if current_user.is_authenticated %}
+
+        <span class="text-light me-3">
+
+            Olá,
+            {{ current_user.name }}
+
+        </span>
+
+        <a
+            href="/logout"
+            class="btn btn-outline-light"
+        >
+            Sair
+        </a>
+
+        {% endif %}
+
         <div class="container">
 
             <a class="navbar-brand" href="/">

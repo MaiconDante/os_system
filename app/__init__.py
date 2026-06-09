@@ -21,7 +21,10 @@ def create_app():
     migrate.init_app(app, db)
     # Register blueprints
     from app.routes.main_routes import main_bp
+    from app.routes.clients_routes import client_bp
     # Register the main blueprint with the Flask app
     app.register_blueprint(main_bp)
+    # Register the client blueprint with the Flask app
+    app.register_blueprint(client_bp)
 
     return app

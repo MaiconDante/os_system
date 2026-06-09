@@ -4,4 +4,4 @@ main_bp = Blueprint("main", __name__)
 
 @main_bp.route("/")
 def home():
-    return "<h1> Sistema OS funcionando! </h1>"
+    return render_template("home.html")

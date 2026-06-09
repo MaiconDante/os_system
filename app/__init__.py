@@ -28,13 +28,10 @@ def create_app():
     login_manager.login_view = "auth.login"
     migrate.init_app(app, db)
     # Register blueprints
-    from app.routes.main_routes import main_bp
     from app.routes.clients_routes import client_bp
     from app.routes.order_service_routes import order_service_bp
     from app.routes.dashboard_routes import dashboard_bp
     from app.routes.auth_routes import auth_bp
-    # Register the main blueprint with the Flask app
-    app.register_blueprint(main_bp)
     # Register the client blueprint with the Flask app
     app.register_blueprint(client_bp)
     # Register the order service blueprint with the Flask app

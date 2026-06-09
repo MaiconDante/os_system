@@ -15,11 +15,7 @@ from app.models.client_model import Client
 from flask_login import login_required
 
 # Blueprint para as rotas de clientes
-client_bp = Blueprint(
-    "client",
-    __name__,
-    url_prefix="/clients"
-)
+client_bp = Blueprint("client", __name__, url_prefix="/clients")
 
 # Rota para listar os clientes
 @client_bp.route("/")
@@ -31,10 +27,12 @@ def index():
     # Obtendo o parâmetro de ordenação da query string, com valor padrão "newest"
     sort = request.args.get("sort", "newest")
 
+    # Iniciando a consulta para obter os clientes, aplicando filtros de busca e ordenação conforme necessário
     query = Client.query
-
+    
+    # Se um termo de busca for fornecido, filtramos os clientes pelo nome ou e-mail usando o operador OR
     if search:
-
+        # Utilizando o operador OR para filtrar clientes cujo nome ou e-mail contenha o termo de busca, ignorando maiúsculas e minúsculas
         query = query.filter(
             or_(
                 Client.name.ilike(f"%{search}%"),
@@ -42,18 +40,21 @@ def index():
             )
         )
 
+    # Obtendo o número da página da query string, com valor padrão 1
     page = request.args.get(
         "page",
         1,
         type=int
     )
 
+    # Aplicando a ordenação com base no parâmetro "sort"
     if sort == "name":
 
         query = query.order_by(
             Client.name.asc()
         )
 
+    # Se o parâmetro de ordenação for "oldest", ordenamos os clientes do mais antigo para o mais recente
     elif sort == "oldest":
 
         query = query.order_by(
@@ -62,16 +63,18 @@ def index():
 
     else:
 
+        # Por padrão, ordenamos os clientes do mais recente para o mais antigo
         query = query.order_by(
             Client.id.desc()
         )
 
-
+    # Paginação dos resultados, limitando a 5 clientes por página
     clients = query.paginate(
         page=page,
         per_page=5
     )
-
+    
+    # Renderizando o template "clients/index.html" e passando a lista de clientes para a visualização
     return render_template(
         "clients/index.html",
         clients=clients

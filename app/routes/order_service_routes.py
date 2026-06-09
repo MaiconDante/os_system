@@ -13,11 +13,7 @@ from app.models.client_model import Client
 from flask_login import login_required
 
 # Blueprint para o módulo de ordem de serviço
-order_service_bp = Blueprint(
-    "order_service",
-    __name__,
-    url_prefix="/orders"
-)
+order_service_bp = Blueprint("order_service", __name__, url_prefix="/orders")
 
 # Rota para exibir a lista de ordens de serviço
 @order_service_bp.route("/")
@@ -95,10 +91,7 @@ def index():
     )
 
 # Rota para criar uma nova ordem de serviço
-@order_service_bp.route(
-    "/create",
-    methods=["GET", "POST"]
-)
+@order_service_bp.route("/create", methods=["GET", "POST"])
 @login_required
 def create():
 
@@ -256,10 +249,7 @@ def edit(order_id):
     )
 
 # Rota para excluir uma ordem de serviço
-@order_service_bp.route(
-    "/<int:order_id>/delete",
-    methods=["POST"]
-)
+@order_service_bp.route("/<int:order_id>/delete", methods=["POST"])
 @login_required
 def delete(order_id):
 

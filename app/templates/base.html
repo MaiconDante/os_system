@@ -21,122 +21,98 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+<div class="app-layout">
 
-        {% if current_user.is_authenticated %}
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
 
-        <span class="text-light me-3">
+        <div>
 
-            Olá,
-            {{ current_user.name }}
-
-        </span>
-
-        <a
-            href="/logout"
-            class="btn btn-outline-light"
-        >
-            Sair
-        </a>
-
-        {% endif %}
-
-        <div class="container">
-
-            <a class="navbar-brand" href="/">
+            <h3 class="logo">
                 OS System
-            </a>
+            </h3>
 
-            <div class="d-flex gap-2">
+            <nav class="sidebar-nav">
 
-                <a
-                    href="/"
-                    class="btn btn-outline-light"
-                >
-                    Home
-                </a>
-
-                <a
-                    href="/clients"
-                    class="btn btn-outline-light"
-                >
-                    Clientes
-                </a>
-
-                <a
-                    href="/orders"
-                    class="btn btn-outline-light"
-                >
-                    Ordens de Serviço
-                </a>
-
-                <a
-                    href="/dashboard"
-                    class="btn btn-outline-light"
-                >
+                <a href="/">
                     Dashboard
                 </a>
 
-            </div>
+                <a href="/clients">
+                    Clientes
+                </a>
+
+                <a href="/orders">
+                    Ordens de Serviço (O.S.)
+                </a>
+
+            </nav>
 
         </div>
 
-    </nav>
 
-    <div class="container mt-4">
+        <div class="sidebar-footer">
 
-        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if current_user.is_authenticated %}
 
-            {% if messages %}
+            <small>
+                {{ current_user.name }}
+            </small>
 
-                {% for category, message in messages %}
-
-                    <div class="alert alert-{{ category }} alert-dismissible fade show">
-
-                        {{ message }}
-
-                        <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="alert">
-                        </button>
-
-                    </div>
-
-                {% endfor %}
+            <a
+                href="/logout"
+                class="btn btn-sm btn-outline-light mt-2"
+            >
+                Sair
+            </a>
 
             {% endif %}
 
-        {% endwith %}
+        </div>
 
-        {% block content %}
-        {% endblock %}
+    </aside>
 
-    </div>
 
-    <footer class="bg-dark text-light mt-5 shadow-sm">
+    <!-- CONTEÚDO -->
+    <main class="main-content">
 
-        <div class="container py-3">
+        <div class="container-fluid py-4">
 
-            <div class="d-flex justify-content-between align-items-center flex-wrap">
+            {% with messages =
+                get_flashed_messages(
+                    with_categories=true
+                )
+            %}
 
-                <div>
-                    <strong>OS System</strong>
-                </div>
+                {% if messages %}
 
-                <div class="text-light small">
-                    © 2026 OS System. Todos os direitos reservados.
-                </div>
+                    {% for category, message in messages %}
 
-            </div>
+                        <div
+                            class="alert alert-{{ category }}"
+                        >
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            {% endwith %}
+
+
+            {% block content %}
+            {% endblock %}
 
         </div>
 
-    </footer>
+    </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</div>
 
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
 </body>
 

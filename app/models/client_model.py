@@ -22,6 +22,7 @@ class Client(db.Model):
     # Define a relationship to the OrderService model, allowing us to access a client's orders
     orders = db.relationship("OrderService", backref="client", lazy=True)
 
+    # Define a string representation of the Client model for easier debugging and logging
     def __repr__(self):
         return f"<Client {self.name}>"
     

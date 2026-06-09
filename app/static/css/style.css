@@ -74,3 +74,14 @@ body {
     border-radius: 14px;
     overflow: hidden;
 }
+
+.badge {
+    padding: 0.55rem 0.8rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.table td strong {
+    color: #212529;
+}

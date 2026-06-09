@@ -48,6 +48,7 @@ Ordens de Serviço
                     <th>Cliente</th>
                     <th>Status</th>
                     <th>Data</th>
+                    <th class="text-center">Ações</th>
 
                 </tr>
 
@@ -77,14 +78,54 @@ Ordens de Serviço
 
                     <td>
 
+                        {% if order.status == "Aberto" %}
+
+                        <span class="badge bg-warning text-dark">
+                            {{ order.status }}
+                        </span>
+
+                        {% elif order.status == "Em andamento" %}
+
                         <span class="badge bg-primary">
                             {{ order.status }}
                         </span>
+
+                        {% elif order.status == "Finalizado" %}
+
+                        <span class="badge bg-success">
+                            {{ order.status }}
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge bg-secondary">
+                            {{ order.status }}
+                        </span>
+
+                        {% endif %}
 
                     </td>
 
                     <td>
                         {{ order.created_at.strftime('%d/%m/%Y') }}
+                    </td>
+
+                    <td class="text-center action-buttons">
+
+                        <a
+                            href="/orders/{{ order.id }}/edit"
+                            class="btn btn-sm btn-outline-primary"
+                        >
+                            Editar
+                        </a>
+
+                        <button
+                            type="button"
+                            class="btn btn-sm btn-outline-danger"
+                        >
+                            Excluir
+                        </button>
+
                     </td>
 
                 </tr>

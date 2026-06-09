@@ -1,4 +1,7 @@
 # --- CHAVES E CREDENCIAIS (Essencial para não vazar dados) ---
+venv/
+env/
+.venv/
 .env
 .env.local
 .env.*.local

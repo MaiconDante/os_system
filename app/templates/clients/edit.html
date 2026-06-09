@@ -25,6 +25,7 @@ Editar Cliente
                     name="name"
                     class="form-control"
                     value="{{ client.name }}"
+                    placeholder="Digite o nome do cliente"
                     required
                 >
 
@@ -39,8 +40,9 @@ Editar Cliente
                 <input
                     type="text"
                     name="phone"
-                    class="form-control"
+                    class="form-control phone-mask"
                     value="{{ client.phone }}"
+                    placeholder="(00) 00000-0000"
                 >
 
             </div>
@@ -56,6 +58,7 @@ Editar Cliente
                     name="email"
                     class="form-control"
                     value="{{ client.email }}"
+                    placeholder="cliente@email.com"
                 >
 
             </div>

@@ -65,76 +65,80 @@ Clientes
 
     {% if clients.items %}
 
-    <table class="table table-hover align-middle">
+    <div class="table-responsive">
 
-        <thead>
+        <table class="table table-hover align-middle">
 
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Telefone</th>
-                <th>E-mail</th>
-                <th>Criado em</th>
-                <th>Ações</th>
-            </tr>
+            <thead>
 
-        </thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>E-mail</th>
+                    <th>Criado em</th>
+                    <th>Ações</th>
+                </tr>
 
-        <tbody>
+            </thead>
 
-            {% for client in clients.items %}
+            <tbody>
 
-            <tr>
+                {% for client in clients.items %}
 
-                <td>{{ client.id }}</td>
+                <tr>
 
-                <td>
-                    <strong>{{ client.name }}</strong>
-                </td>
+                    <td>{{ client.id }}</td>
 
-                <td>{{ client.phone }}</td>
+                    <td>
+                        <strong>{{ client.name }}</strong>
+                    </td>
 
-                <td>{{ client.email }}</td>
+                    <td>{{ client.phone }}</td>
 
-                <td>{{ client.created_at.strftime('%d/%m/%Y') }}</td>
+                    <td>{{ client.email }}</td>
 
-                <td>
+                    <td>{{ client.created_at.strftime('%d/%m/%Y') }}</td>
 
-                    <div class="action-buttons">
+                    <td>
 
-                        <a
-                            href="/clients/{{ client.id }}/edit"
-                            class="btn btn-sm btn-outline-warning"
-                        >
-                            Editar
-                        </a>
+                        <div class="action-buttons">
 
-                        <form
-                            action="/clients/{{ client.id }}/delete"
-                            method="POST"
-                        >
-
-                            <button
-                                type="submit"
-                                class="btn btn-sm btn-outline-danger"
-                                onclick="return confirm('Deseja excluir este cliente?')"
+                            <a
+                                href="/clients/{{ client.id }}/edit"
+                                class="btn btn-sm btn-outline-warning"
                             >
-                                Excluir
-                            </button>
+                                Editar
+                            </a>
 
-                        </form>
+                            <form
+                                action="/clients/{{ client.id }}/delete"
+                                method="POST"
+                            >
 
-                    </div>
+                                <button
+                                    type="submit"
+                                    class="btn btn-sm btn-outline-danger"
+                                    onclick="return confirm('Deseja excluir este cliente?')"
+                                >
+                                    Excluir
+                                </button>
 
-                </td>
+                            </form>
 
-            </tr>
+                        </div>
 
-            {% endfor %}
+                    </td>
 
-        </tbody>
+                </tr>
 
-    </table>
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
 
     <nav class="mt-4">
 

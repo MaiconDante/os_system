@@ -8,6 +8,10 @@ Novo Cliente
 
 <h1 class="mb-4">Novo Cliente</h1>
 
+<p class="text-muted mb-4">
+    Preencha os dados do novo cliente.
+</p>
+
 <div class="card card-custom shadow-sm">
 
     <div class="card-body p-4">
@@ -23,6 +27,7 @@ Novo Cliente
                     type="text"
                     name="name"
                     class="form-control"
+                    placeholder="Digite o nome do cliente"
                     required
                 >
             </div>
@@ -35,7 +40,8 @@ Novo Cliente
                 <input
                     type="text"
                     name="phone"
-                    class="form-control"
+                    class="form-control phone-mask"
+                    placeholder="(00) 00000-0000"
                 >
             </div>
 
@@ -48,11 +54,12 @@ Novo Cliente
                     type="email"
                     name="email"
                     class="form-control"
+                    placeholder="cliente@email.com"
                 >
             </div>
 
-            <button type="submit" class="btn btn-success">
-                Salvar Cliente
+            <button type="submit" class="btn btn-success btn-lg">
+                Cadastrar Cliente
             </button>
 
         </form>

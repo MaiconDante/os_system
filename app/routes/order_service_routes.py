@@ -188,3 +188,29 @@ def edit(order_id):
         order=order,
         clients=clients
     )
+
+# Rota para excluir uma ordem de serviço
+@order_service_bp.route(
+    "/<int:order_id>/delete",
+    methods=["POST"]
+)
+def delete(order_id):
+
+    order = OrderService.query.get_or_404(
+        order_id
+    )
+
+
+    db.session.delete(order)
+
+    db.session.commit()
+
+
+    flash(
+        "Ordem de serviço removida com sucesso.",
+        "success"
+    )
+
+    return redirect(
+        url_for("order_service.index")
+    )

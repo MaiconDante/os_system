@@ -1,3 +1,4 @@
+// Phone Mask
 document.addEventListener("DOMContentLoaded", () => {
 
     const phoneInputs = document.querySelectorAll(".phone-mask");
@@ -54,6 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+// Clients
 const deleteButtons = document.querySelectorAll(
     ".open-delete-modal"
 );
@@ -82,6 +84,41 @@ deleteButtons.forEach((button) => {
 
 
         deleteForm.action = `/clients/${clientId}/delete`;
+
+    });
+
+});
+
+// Orders
+const deleteOrderButtons = document.querySelectorAll(
+    ".open-delete-order-modal"
+);
+
+
+const deleteOrderForm = document.getElementById(
+    "deleteOrderForm"
+);
+
+
+const deleteOrderTitle = document.getElementById(
+    "deleteOrderTitle"
+);
+
+
+deleteOrderButtons.forEach((button) => {
+
+    button.addEventListener("click", () => {
+
+        const orderId = button.dataset.orderId;
+
+        const orderTitle = button.dataset.orderTitle;
+
+
+        deleteOrderTitle.textContent = orderTitle;
+
+
+        deleteOrderForm.action =
+            `/orders/${orderId}/delete`;
 
     });
 

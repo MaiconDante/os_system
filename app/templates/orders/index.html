@@ -121,7 +121,11 @@ Ordens de Serviço
 
                         <button
                             type="button"
-                            class="btn btn-sm btn-outline-danger"
+                            class="btn btn-sm btn-outline-danger open-delete-order-modal"
+                            data-order-id="{{ order.id }}"
+                            data-order-title="{{ order.title }}"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteOrderModal"
                         >
                             Excluir
                         </button>
@@ -153,6 +157,70 @@ Ordens de Serviço
     </div>
 
     {% endif %}
+
+</div>
+
+<div
+    class="modal fade"
+    id="deleteOrderModal"
+    tabindex="-1"
+>
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+                    Confirmar exclusão?
+                </h5>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                ></button>
+
+            </div>
+
+            <div class="modal-body">
+
+                Deseja realmente excluir a ordem:
+
+                <strong id="deleteOrderTitle"></strong>?
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                >
+                    Cancelar
+                </button>
+
+                <form
+                    id="deleteOrderForm"
+                    method="POST"
+                >
+
+                    <button
+                        type="submit"
+                        class="btn btn-danger"
+                    >
+                        Excluir
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 

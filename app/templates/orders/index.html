@@ -20,21 +20,98 @@ Ordens de Serviço
 
     </div>
 
+    <a
+        href="/orders/create"
+        class="btn btn-primary"
+    >
+        Nova Ordem
+    </a>
+
 </div>
 
-<div class="card card-custom shadow-sm">
 
-    <div class="card-body p-5 text-center">
+<div class="table-container shadow-sm">
+
+    {% if orders %}
+
+    <div class="table-responsive">
+
+        <table class="table table-hover align-middle">
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Equipamento</th>
+                    <th>Cliente</th>
+                    <th>Status</th>
+                    <th>Data</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for order in orders %}
+
+                <tr>
+
+                    <td>{{ order.id }}</td>
+
+                    <td>
+                        <strong>
+                            {{ order.title }}
+                        </strong>
+                    </td>
+
+                    <td>
+                        {{ order.equipment }}
+                    </td>
+
+                    <td>
+                        {{ order.client.name }}
+                    </td>
+
+                    <td>
+
+                        <span class="badge bg-primary">
+                            {{ order.status }}
+                        </span>
+
+                    </td>
+
+                    <td>
+                        {{ order.created_at.strftime('%d/%m/%Y') }}
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="text-center py-5">
 
         <h4>
-            Módulo em desenvolvimento
+            Nenhuma ordem cadastrada
         </h4>
 
         <p class="text-muted">
-            Em breve será possível cadastrar ordens de serviço.
+            Crie sua primeira ordem de serviço.
         </p>
 
     </div>
+
+    {% endif %}
 
 </div>
 

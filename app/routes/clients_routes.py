@@ -36,7 +36,18 @@ def index():
             )
         )
 
-    clients = query.order_by(Client.id.desc()).all()
+    page = request.args.get(
+        "page",
+        1,
+        type=int
+    )
+
+    clients = query.order_by(
+        Client.id.desc()
+    ).paginate(
+        page=page,
+        per_page=5
+    )
 
     return render_template(
         "clients/index.html",

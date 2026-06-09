@@ -33,3 +33,13 @@ body {
     display: flex;
     gap: 8px;
 }
+
+.pagination .page-link {
+    border-radius: 8px;
+    margin: 0 3px;
+}
+
+thead > tr > th {
+    background-color: #023266 !important;
+    color: white !important;
+}

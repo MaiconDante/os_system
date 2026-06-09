@@ -63,7 +63,7 @@ Clientes
 
 <div class="table-container shadow-sm">
 
-    {% if clients %}
+    {% if clients.items %}
 
     <table class="table table-hover align-middle">
 
@@ -82,7 +82,7 @@ Clientes
 
         <tbody>
 
-            {% for client in clients %}
+            {% for client in clients.items %}
 
             <tr>
 
@@ -135,6 +135,65 @@ Clientes
         </tbody>
 
     </table>
+
+    <nav class="mt-4">
+
+        <ul class="pagination justify-content-center">
+
+            {% if clients.has_prev %}
+
+            <li class="page-item">
+
+                <a
+                    class="page-link"
+                    href="{{ url_for('client.index', page=clients.prev_num, search=request.args.get('search', '')) }}"
+                >
+                    Anterior
+                </a>
+
+            </li>
+
+            {% endif %}
+
+
+            {% for page_num in clients.iter_pages() %}
+
+                {% if page_num %}
+
+                    <li class="page-item {% if page_num == clients.page %}active{% endif %}">
+
+                        <a
+                            class="page-link"
+                            href="{{ url_for('client.index', page=page_num, search=request.args.get('search', '')) }}"
+                        >
+                            {{ page_num }}
+                        </a>
+
+                    </li>
+
+                {% endif %}
+
+            {% endfor %}
+
+
+            {% if clients.has_next %}
+
+            <li class="page-item">
+
+                <a
+                    class="page-link"
+                    href="{{ url_for('client.index', page=clients.next_num, search=request.args.get('search', '')) }}"
+                >
+                    Próxima
+                </a>
+
+            </li>
+
+            {% endif %}
+
+        </ul>
+
+    </nav>
 
     {% else %}
 

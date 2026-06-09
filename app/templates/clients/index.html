@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}
+Clientes
+{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h1>Clientes</h1>
+
+    <a href="/clients/create" class="btn btn-primary">
+        Novo Cliente
+    </a>
+
+</div>
+
+{% if clients %}
+
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for client in clients %}
+
+        <tr>
+            <td>{{ client.id }}</td>
+            <td>{{ client.name }}</td>
+            <td>{{ client.phone }}</td>
+            <td>{{ client.email }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% else %}
+
+<div class="alert alert-info">
+    Nenhum cliente cadastrado.
+</div>
+
+{% endif %}
+
+{% endblock %}

@@ -6,6 +6,7 @@ from flask import (
     url_for,
     flash
 )
+from sqlalchemy import or_
 
 # Importando o banco de dados e o modelo de cliente
 from app import db
@@ -21,8 +22,21 @@ client_bp = Blueprint(
 # Rota para listar os clientes
 @client_bp.route("/")
 def index():
-    # Consultando todos os clientes do banco de dados
-    clients = Client.query.all()
+    # Obtendo o parâmetro de busca da query string, removendo espaços em branco extras
+    search = request.args.get("search", "").strip()
+
+    query = Client.query
+
+    if search:
+
+        query = query.filter(
+            or_(
+                Client.name.ilike(f"%{search}%"),
+                Client.email.ilike(f"%{search}%")
+            )
+        )
+
+    clients = query.order_by(Client.id.desc()).all()
 
     return render_template(
         "clients/index.html",

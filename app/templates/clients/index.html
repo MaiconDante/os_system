@@ -14,6 +14,37 @@ Clientes
             Clientes
         </h1>
 
+        <form method="GET" class="mb-4">
+
+            <div class="row">
+
+                <div class="col-md-10">
+
+                    <input
+                        type="text"
+                        name="search"
+                        class="form-control"
+                        placeholder="Buscar por nome ou e-mail..."
+                        value="{{ request.args.get('search', '') }}"
+                    >
+
+                </div>
+
+                <div class="col-md-2 d-grid">
+
+                    <button
+                        type="submit"
+                        class="btn btn-dark"
+                    >
+                        Buscar
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
         <p class="text-muted">
             Gerencie os clientes cadastrados no sistema.
         </p>
@@ -34,7 +65,7 @@ Clientes
 
     {% if clients %}
 
-    <table class="table align-middle">
+    <table class="table table-hover align-middle">
 
         <thead>
 
@@ -43,6 +74,7 @@ Clientes
                 <th>Nome</th>
                 <th>Telefone</th>
                 <th>E-mail</th>
+                <th>Criado em</th>
                 <th>Ações</th>
             </tr>
 
@@ -64,13 +96,15 @@ Clientes
 
                 <td>{{ client.email }}</td>
 
+                <td>{{ client.created_at.strftime('%d/%m/%Y') }}</td>
+
                 <td>
 
                     <div class="action-buttons">
 
                         <a
                             href="/clients/{{ client.id }}/edit"
-                            class="btn btn-sm btn-warning"
+                            class="btn btn-sm btn-outline-warning"
                         >
                             Editar
                         </a>
@@ -82,7 +116,7 @@ Clientes
 
                             <button
                                 type="submit"
-                                class="btn btn-sm btn-danger"
+                                class="btn btn-sm btn-outline-danger"
                                 onclick="return confirm('Deseja excluir este cliente?')"
                             >
                                 Excluir
@@ -104,8 +138,23 @@ Clientes
 
     {% else %}
 
-    <div class="alert alert-info mb-0">
-        Nenhum cliente cadastrado.
+    <div class="text-center py-5">
+
+        <h4 class="mb-3">
+            Nenhum cliente encontrado
+        </h4>
+
+        <p class="text-muted">
+            Cadastre um novo cliente para começar.
+        </p>
+
+        <a
+            href="/clients/create"
+            class="btn btn-primary mt-2"
+        >
+            Novo Cliente
+        </a>
+
     </div>
 
     {% endif %}

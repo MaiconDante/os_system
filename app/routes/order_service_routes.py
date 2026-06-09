@@ -110,3 +110,81 @@ def create():
         "orders/create.html",
         clients=clients
     )
+
+# Rota para editar uma ordem de serviço existente
+@order_service_bp.route(
+    "/<int:order_id>/edit",
+    methods=["GET", "POST"]
+)
+def edit(order_id):
+
+    order = OrderService.query.get_or_404(
+        order_id
+    )
+
+
+    clients = Client.query.order_by(
+        Client.name.asc()
+    ).all()
+
+
+    if request.method == "POST":
+
+        order.title = request.form.get(
+            "title"
+        ).strip()
+
+        order.equipment = request.form.get(
+            "equipment"
+        ).strip()
+
+        order.description = request.form.get(
+            "description"
+        ).strip()
+
+        order.technical_notes = request.form.get(
+            "technical_notes"
+        ).strip()
+
+        order.status = request.form.get(
+            "status"
+        )
+
+        order.client_id = request.form.get(
+            "client_id"
+        )
+
+
+        if not order.title:
+
+            flash(
+                "Título é obrigatório.",
+                "danger"
+            )
+
+            return redirect(
+                url_for(
+                    "order_service.edit",
+                    order_id=order.id
+                )
+            )
+
+
+        db.session.commit()
+
+
+        flash(
+            "Ordem atualizada com sucesso.",
+            "success"
+        )
+
+        return redirect(
+            url_for("order_service.index")
+        )
+
+
+    return render_template(
+        "orders/edit.html",
+        order=order,
+        clients=clients
+    )

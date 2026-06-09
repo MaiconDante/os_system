@@ -85,3 +85,20 @@ body {
 .table td strong {
     color: #212529;
 }
+
+.dashboard-card {
+    border: none;
+    border-radius: 14px;
+    transition: 0.2s ease;
+}
+
+
+.dashboard-card:hover {
+    transform: translateY(-3px);
+}
+
+
+.dashboard-card h2 {
+    font-size: 2rem;
+    font-weight: 700;
+}

@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="mb-4">
+
+    <h1 class="page-title">
+        Dashboard
+    </h1>
+
+    <p class="text-muted">
+        Visão geral do sistema.
+    </p>
+
+</div>
+
+
+<div class="row g-4 mb-4">
+
+    <div class="col-md-3">
+
+        <div class="card dashboard-card shadow-sm">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+                    Clientes
+                </h6>
+
+                <h2>
+                    {{ total_clients }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-md-3">
+
+        <div class="card dashboard-card shadow-sm">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+                    Ordens
+                </h6>
+
+                <h2>
+                    {{ total_orders }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-md-3">
+
+        <div class="card dashboard-card shadow-sm">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+                    Em Aberto
+                </h6>
+
+                <h2>
+                    {{ open_orders }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-md-3">
+
+        <div class="card dashboard-card shadow-sm">
+
+            <div class="card-body">
+
+                <h6 class="text-muted">
+                    Finalizadas
+                </h6>
+
+                <h2>
+                    {{ completed_orders }}
+                </h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="card card-custom shadow-sm">
+
+    <div class="card-header">
+
+        Últimas Ordens de Serviço
+
+    </div>
+
+    <div class="card-body">
+
+        {% if latest_orders %}
+
+        <div class="table-responsive">
+
+            <table class="table align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Cliente</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for order in latest_orders %}
+
+                    <tr>
+
+                        <td>
+                            #{{ order.id }}
+                        </td>
+
+                        <td>
+                            {{ order.title }}
+                        </td>
+
+                        <td>
+                            {{ order.client.name }}
+                        </td>
+
+                        <td>
+
+                            {% if order.status == "Aberto" %}
+
+                            <span class="badge bg-warning text-dark">
+                                {{ order.status }}
+                            </span>
+
+                            {% elif order.status == "Em andamento" %}
+
+                            <span class="badge bg-primary">
+                                {{ order.status }}
+                            </span>
+
+                            {% elif order.status == "Finalizado" %}
+
+                            <span class="badge bg-success">
+                                {{ order.status }}
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <p class="text-muted mb-0">
+            Nenhuma ordem cadastrada.
+        </p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

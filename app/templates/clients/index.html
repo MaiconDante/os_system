@@ -6,7 +6,7 @@ Clientes
 
 {% block content %}
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+<div class="d-flex justify-content-between align-items-center mb-2">
 
     <h1>Clientes</h1>
 
@@ -26,6 +26,7 @@ Clientes
             <th>Nome</th>
             <th>Telefone</th>
             <th>Email</th>
+            <th>Ações</th> 
         </tr>
     </thead>
 
@@ -38,6 +39,28 @@ Clientes
             <td>{{ client.name }}</td>
             <td>{{ client.phone }}</td>
             <td>{{ client.email }}</td>
+            <td>
+                <a
+                    href="/clients/{{ client.id }}/edit"
+                    class="btn btn-sm btn-warning"
+                >
+                    Editar
+                </a>
+            </td>
+            <td>
+                <form
+                    action="/clients/{{ client.id }}/delete"
+                    method="POST"
+                    class="d-inline"
+                >
+                    <button
+                        type="submit"
+                        class="btn btn-sm btn-danger"
+                    >
+                        Excluir
+                    </button>
+                </form>
+            </td>
         </tr>
 
         {% endfor %}

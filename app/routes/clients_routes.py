@@ -21,7 +21,7 @@ client_bp = Blueprint(
 # Rota para listar os clientes
 @client_bp.route("/")
 def index():
-
+    # Consultando todos os clientes do banco de dados
     clients = Client.query.all()
 
     return render_template(
@@ -32,17 +32,49 @@ def index():
 # Rota para criar um novo cliente
 @client_bp.route("/create", methods=["GET", "POST"])
 def create():
-
+    # Verificando se o método da requisição é POST para processar o formulário de criação
     if request.method == "POST":
+        # Obtendo os dados do formulário e removendo espaços em branco extras
+        name = request.form.get("name").strip()
 
+        phone = request.form.get("phone").strip()
+
+        email = request.form.get("email").strip()
+
+        # Validando os dados do formulário, garantindo que o nome seja fornecido
+        if not name:
+
+            flash(
+                "Nome é obrigatório.",
+                "danger"
+            )
+
+            return redirect(url_for("client.create"))
+        
+        # Verificando se o e-mail já está cadastrado no banco de dados
+        existing_email = Client.query.filter_by(
+            email=email
+        ).first()
+
+        # Se o e-mail já existir, exibe uma mensagem de erro e redireciona de volta para a página de criação
+        if existing_email:
+
+            flash(
+                "Este e-mail já está cadastrado.",
+                "danger"
+            )
+
+            return redirect(url_for("client.create"))
+        
+        # Criando um novo cliente com os dados fornecidos
         new_client = Client(
-            name=request.form.get("name"),
-            phone=request.form.get("phone"),
-            email=request.form.get("email")
+            name=name,
+            phone=phone,
+            email=email
         )
 
+        # Adicionando o novo cliente à sessão do banco de dados
         db.session.add(new_client)
-
         db.session.commit()
 
         flash(
@@ -57,22 +89,64 @@ def create():
 # Rota para editar um cliente existente
 @client_bp.route("/<int:client_id>/edit", methods=["GET", "POST"])
 def edit(client_id):
-
+    # Consultando o cliente pelo ID, retornando um erro 404 se não for encontrado
     client = Client.query.get_or_404(client_id)
 
+    # Verificando se o método da requisição é POST para processar o formulário de edição
     if request.method == "POST":
 
-        client.name = request.form.get("name")
+        name = request.form.get("name").strip()
 
-        client.phone = request.form.get("phone")
+        phone = request.form.get("phone").strip()
 
-        client.email = request.form.get("email")
+        email = request.form.get("email").strip()
+
+        # Validando os dados do formulário, garantindo que o nome seja fornecido
+        if not name:
+
+            flash(
+                "Nome é obrigatório.",
+                "danger"
+            )
+
+            return redirect(
+                url_for(
+                    "client.edit",
+                    client_id=client.id
+                )
+            )
+        
+        # Verificando se o e-mail já está cadastrado para outro cliente no banco de dados
+        existing_email = Client.query.filter(
+            Client.email == email,
+            Client.id != client.id
+        ).first()
+
+        # Se o e-mail já existir para outro cliente, exibe uma mensagem de erro e redireciona de volta para a página de edição
+        if existing_email:
+
+            flash(
+                "Este e-mail já está cadastrado.",
+                "danger"
+            )
+
+            return redirect(
+                url_for(
+                    "client.edit",
+                    client_id=client.id
+                )
+            )
+
+        # Atualizando os dados do cliente com os valores fornecidos no formulário
+        client.name = name
+        client.phone = phone
+        client.email = email
 
         db.session.commit()
 
         flash(
             "Cliente atualizado com sucesso!",
-            "success"
+            "info"
         )
 
         return redirect(url_for("client.index"))
@@ -89,7 +163,6 @@ def delete(client_id):
     client = Client.query.get_or_404(client_id)
 
     db.session.delete(client)
-
     db.session.commit()
 
     flash(

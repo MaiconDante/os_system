@@ -6,31 +6,33 @@ Dashboard
 
 {% block content %}
 
+<!-- DASHBOARD -->
 <div class="mb-4">
-
+    <!-- TÍTULO DA PÁGINA -->
     <h1 class="page-title">
+        <img src="{{ url_for('static', filename='images/dashboard.png') }}" alt="Dashboard">
         Dashboard
     </h1>
-
+    <!-- DESCRIÇÃO DA PÁGINA -->
     <p class="text-muted">
-        Visão geral do sistema.
+        <i class="bi bi-speedometer2"></i> Visão geral do sistema.
     </p>
 
 </div>
 
-
+<!-- CARDS DE RESUMO -->
 <div class="row g-4 mb-4">
-
+    <!-- CARD DE CLIENTES -->
     <div class="col-md-3">
-
+        <!-- CARD DE CLIENTES -->
         <div class="card dashboard-card shadow-sm">
-
+            <!-- CORPO DO CARD -->
             <div class="card-body">
-
+                <!-- TÍTULO DO CARD -->
                 <h6 class="text-muted">
                     Clientes
                 </h6>
-
+                <!-- VALOR DO CARD -->
                 <h2>
                     {{ total_clients }}
                 </h2>
@@ -41,17 +43,17 @@ Dashboard
 
     </div>
 
-
+    <!-- CARD DE TÉCNICOS -->
     <div class="col-md-3">
-
+        <!-- CARD DE TÉCNICOS -->
         <div class="card dashboard-card shadow-sm">
 
             <div class="card-body">
-
+                <!-- TÍTULO DO CARD -->
                 <h6 class="text-muted">
                     Ordens
                 </h6>
-
+                <!-- VALOR DO CARD -->
                 <h2>
                     {{ total_orders }}
                 </h2>
@@ -62,7 +64,7 @@ Dashboard
 
     </div>
 
-
+    <!-- CARD DE ORDENS EM ABERTO -->
     <div class="col-md-3">
 
         <div class="card dashboard-card shadow-sm">
@@ -83,7 +85,7 @@ Dashboard
 
     </div>
 
-
+    <!-- CARD DE ORDENS FINALIZADAS -->
     <div class="col-md-3">
 
         <div class="card dashboard-card shadow-sm">
@@ -106,12 +108,12 @@ Dashboard
 
 </div>
 
-
+<!-- CARD DE ÚLTIMAS ORDENS -->
 <div class="card card-custom shadow-sm">
 
     <div class="card-header">
 
-        Últimas Ordens de Serviço
+        <i class="bi bi-clock-history"></i> Últimas Ordens de Serviço
 
     </div>
 
@@ -131,6 +133,7 @@ Dashboard
                         <th>Título</th>
                         <th>Cliente</th>
                         <th>Status</th>
+                        <th>Criado em</th>
 
                     </tr>
 
@@ -178,6 +181,10 @@ Dashboard
 
                         </td>
 
+                        <td>
+                            {{ order.created_at.strftime('%d/%m/%Y') }}
+                        </td>
+
                     </tr>
 
                     {% endfor %}
@@ -191,7 +198,7 @@ Dashboard
         {% else %}
 
         <p class="text-muted mb-0">
-            Nenhuma ordem cadastrada.
+            <i class="bi bi-exclamation-triangle"></i> Nenhuma ordem cadastrada.
         </p>
 
         {% endif %}

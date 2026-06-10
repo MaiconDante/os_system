@@ -6,20 +6,27 @@ Clientes
 
 {% block content %}
 
+<!-- TÍTULO E AÇÕES -->
 <div class="d-flex justify-content-between align-items-center mb-4">
-
+    <!-- TÍTULO E DESCRIÇÃO -->
     <div>
-
+        <!-- TÍTULO -->
         <h1 class="page-title">
+            <img
+                src="/static/images/clients.png"
+                alt="Ícone de clientes"
+                class="me-2"
+                style="width: 90px; height: 70px;"
+            >
             Clientes
         </h1>
-
+        <!-- DESCRIÇÃO -->
         <form method="GET" class="mb-4">
-
+            <!-- CAMPO DE BUSCA -->
             <div class="row g-2">
-
+                <!-- CAMPO DE BUSCA -->
                 <div class="col-md-10">
-
+                    <!-- CAMPO DE BUSCA -->
                     <input
                         type="text"
                         name="search"
@@ -98,22 +105,22 @@ Clientes
 
                 </div>
 
+                <a
+                    href="/clients/create"
+                    class="btn btn-primary"
+                >
+                    Novo Cliente
+                </a>
+
             </div>
 
         </form>
 
         <p class="text-muted">
-            Gerencie os clientes cadastrados no sistema.
+            <i class="bi bi-person-lines-fill"></i> Gerencie os clientes cadastrados no sistema.
         </p>
 
     </div>
-
-    <a
-        href="/clients/create"
-        class="btn btn-primary"
-    >
-        Novo Cliente
-    </a>
 
 </div>
 
@@ -257,11 +264,11 @@ Clientes
     <div class="text-center py-5">
 
         <h4 class="mb-3">
-            Nenhum cliente encontrado
+            <i class="bi bi-exclamation-triangle"></i> Nenhum cliente encontrado
         </h4>
 
         <p class="text-muted">
-            Cadastre um novo cliente para começar.
+            <i class="bi bi-plus-circle"></i> Cadastre um novo cliente para começar.
         </p>
 
     </div>

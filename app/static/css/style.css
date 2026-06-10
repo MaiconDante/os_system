@@ -1,23 +1,23 @@
+/* Reset básico */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
+/* Estilos globais */
 body {
     background-color: #f4f6f9;
     overflow-x: hidden;
+
+    font-family: "Inter", sans-serif;
 }
-
-
+/* LAYOUT PRINCIPAL */
 .app-layout {
     display: flex;
     min-height: 100vh;
 }
 
-
 /* SIDEBAR */
-
 .sidebar {
     width: 250px;
     background: #1f2937;
@@ -33,109 +33,109 @@ body {
     height: 100vh;
 }
 
-
-.logo {
-    font-weight: 700;
-    margin-bottom: 2rem;
-}
-
-
+/* NAVEGAÇÃO */
 .sidebar-nav {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
 }
 
-
+/* LINKS DA SIDEBAR */
 .sidebar-nav a {
     text-decoration: none;
     color: #d1d5db;
 
-    padding: 0.8rem 1rem;
+    padding: 0.9rem 1rem;
 
-    border-radius: 10px;
+    border-radius: 12px;
 
     transition: 0.2s ease;
+
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+
+    font-weight: 500;
 }
 
-
+/* HOVER NOS LINKS DA SIDEBAR */
 .sidebar-nav a:hover {
     background: #374151;
     color: white;
+
+    transform: translateX(3px);
 }
 
+/* RODAPÉ DA SIDEBAR */
+.sidebar-footer {
+    font-size: 0.85rem;
+    color: #9ca3af;
+    text-align: center;
+    padding: 1rem 0;
+}
 
 /* CONTEÚDO */
-
 .main-content {
     margin-left: 250px;
     width: 100%;
 }
 
-
 /* CARDS */
-
 .card-custom,
 .dashboard-card {
     border: none;
     border-radius: 14px;
 }
 
-
 /* TABELAS */
-
 .table-container {
     background: white;
     border-radius: 14px;
     padding: 1rem;
 }
 
-
-/* PAGE TITLE */
-
-.page-title {
-    font-weight: 700;
-}
-
+/* BOTÕES */
 .navbar-brand {
     font-weight: bold;
     font-size: 1.3rem;
 }
 
-.page-title {
-    font-weight: 700;
-    color: #212529;
-}
-
+/* CARDS */
 .card-custom {
     border: none;
     border-radius: 12px;
 }
 
+/* TABELAS */
 .table-container {
     background-color: white;
     padding: 20px;
     border-radius: 12px;
 }
 
+/* AÇÕES */
 .action-buttons {
     display: flex;
     gap: 8px;
 }
 
+/* BOTÕES DE AÇÃO */
 .action-buttons .btn {
     min-width: 85px;
 }
 
+/* PAGINAÇÃO */
 .pagination .page-link {
     border-radius: 8px;
     margin: 0 3px;
 }
 
+/* ESTILOS ADICIONAIS */
 .table {
     margin-bottom: 0;
 }
 
+/* CABEÇALHO DA TABELA */
 .table thead th {
     background-color: #023266;
     border-bottom: 2px solid #dee2e6;
@@ -144,26 +144,31 @@ body {
     color: white;
 }
 
+/* LINHAS DA TABELA */
 .table tbody tr {
     transition: all 0.2s ease;
     cursor: pointer;
 }
 
+/* HOVER NAS LINHAS DA TABELA */
 .table tbody tr:hover {
     background-color: #f1f3f5;
     box-shadow: inset 4px 0 0 #012863;
 }
 
+/* CÉLULAS DA TABELA */
 .table td {
     vertical-align: middle;
 }
 
+/* CONTAINER DA TABELA */
 .table-container {
     background-color: white;
     border-radius: 14px;
     overflow: hidden;
 }
 
+/* BADGES */
 .badge {
     padding: 0.55rem 0.8rem;
     border-radius: 10px;
@@ -171,36 +176,97 @@ body {
     font-weight: 600;
 }
 
+/* BADGES DE STATUS */
 .table td strong {
     color: #212529;
 }
 
+/* DASHBOARD CARDS */
 .dashboard-card {
     border: none;
     border-radius: 14px;
     transition: 0.2s ease;
 }
 
-
+/* HOVER NOS DASHBOARD CARDS */
 .dashboard-card:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px);
+
+    box-shadow: 0 12px 30px rgba(
+        0,
+        0,
+        0,
+        0.08
+    );
 }
 
-
+/* TÍTULO DOS DASHBOARD CARDS */
 .dashboard-card h2 {
     font-size: 2rem;
     font-weight: 700;
 }
 
+/* SUBTÍTULO DOS DASHBOARD CARDS */
 .table-hover tbody tr {
     transition: 0.2s ease;
 }
 
-
+/* HOVER NAS LINHAS DA TABELA */
 .table-hover tbody tr:hover {
     background-color: #f8fafc;
 }
 
+/* BOTÕES */
 .btn {
     border-radius: 10px;
+}
+
+/* LOGO */
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    margin-bottom: 2.5rem;
+}
+
+/* ÍCONE DA LOGO */
+.logo-icon > img {
+    width: 210px;
+    height: 70px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* BOTÕES */
+.btn {
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+/* LOGO NA TELA DE LOGIN */
+.logo-login > img {
+    width: 400px;
+    height: 120px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem auto;
+}
+
+.page-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #212529;
+    margin-bottom: 1.5rem;
+}
+
+.page-title img {
+    width: 100px;
+    height: 100px;
+    margin-right: 0.2rem;
+    opacity: 0.8;
 }

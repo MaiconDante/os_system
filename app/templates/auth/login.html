@@ -6,69 +6,70 @@ Login
 
 {% block content %}
 
+<!-- LOGIN -->
 <div class="row justify-content-center">
-
+    <!-- LOGIN CARD -->
     <div class="col-md-5">
-
+        <!-- TÍTULO -->
         <div class="text-center mb-4">
-
-            <h1 class="page-title">
-                OS System
-            </h1>
-
-            <p class="text-muted">
-                Sistema de Ordem de Serviço
-            </p>
-
+            <!-- LOGO -->
+            <div class="logo-login">
+                <img src="{{ url_for('static', filename='images/os3.png') }}" alt="Logo">
+            </div>
         </div>
-
+        <!-- CARD -->
         <div class="card shadow-sm border-0 mt-5">
-
+            <!-- CARD BODY -->
             <div class="card-body p-4">
-
+                <!-- TÍTULO DO CARD -->
                 <h2 class="mb-4 text-center">
-                    Login
+                    <i class="bi bi-person-circle me-2"></i>
+                    Login 
                 </h2>
-
+                <!-- FORMULÁRIO -->
                 <form method="POST">
-
+                    <!-- EMAIL -->  
                     <div class="mb-3">
-
+                        <!-- LABEL -->
                         <label class="form-label">
+                            <i class="bi bi-envelope me-2"></i>
                             Email
                         </label>
-
+                        <!-- INPUT -->
                         <input
                             type="email"
                             name="email"
                             class="form-control"
+                            placeholder="Digite seu email"
                             required
                         >
 
                     </div>
 
-
+                    <!-- SENHA -->
                     <div class="mb-4">
-
+                        <!-- LABEL -->
                         <label class="form-label">
+                            <i class="bi bi-lock-fill me-2"></i>
                             Senha
                         </label>
-
+                        <!-- INPUT -->
                         <input
                             type="password"
                             name="password"
                             class="form-control"
+                            placeholder="Digite sua senha"
                             required
                         >
 
                     </div>
 
-
+                    <!-- BOTÃO -->
                     <button
                         type="submit"
                         class="btn btn-dark w-100"
                     >
-                        Entrar
+                        <i class="bi bi-box-arrow-in-right me-2"></i> Entrar
                     </button>
 
                 </form>

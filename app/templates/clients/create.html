@@ -6,10 +6,18 @@ Novo Cliente
 
 {% block content %}
 
-<h1 class="mb-4">Novo Cliente</h1>
+<h1 class="page-title">
+            <img
+                src="/static/images/clients2.png"
+                alt="Ícone de clientes"
+                class="me-2"
+                style="width: 90px; height: 70px;"
+            >
+            Novo Cliente
+        </h1>
 
 <p class="text-muted mb-4">
-    Preencha os dados do novo cliente.
+    <i class="bi bi-person-plus"></i> Preencha os dados do novo cliente.
 </p>
 
 <div class="card card-custom shadow-sm">
@@ -20,7 +28,7 @@ Novo Cliente
 
             <div class="mb-3">
                 <label class="form-label">
-                    Nome
+                    <i class="bi bi-person"></i> Nome
                 </label>
 
                 <input
@@ -34,7 +42,7 @@ Novo Cliente
 
             <div class="mb-3">
                 <label class="form-label">
-                    Telefone
+                    <i class="bi bi-telephone"></i> Telefone
                 </label>
 
                 <input
@@ -47,7 +55,7 @@ Novo Cliente
 
             <div class="mb-3">
                 <label class="form-label">
-                    E-mail
+                    <i class="bi bi-envelope"></i> E-mail
                 </label>
 
                 <input
@@ -59,7 +67,7 @@ Novo Cliente
             </div>
 
             <button type="submit" class="btn btn-success btn-lg">
-                Cadastrar Cliente
+                <i class="bi bi-save"></i> Cadastrar Cliente
             </button>
 
         </form>

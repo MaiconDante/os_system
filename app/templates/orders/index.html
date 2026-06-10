@@ -11,21 +11,20 @@ Ordens de Serviço
     <div>
 
         <h1 class="page-title">
+            <img
+                src="/static/images/orders.png"
+                alt="Ícone de ordens de serviço"
+                class="me-2"
+                style="width: 90px; height: 70px;"
+            >
             Ordens de Serviço
         </h1>
 
         <p class="text-muted">
-            Gerencie as ordens de serviço do sistema.
+            <i class="bi bi-list-task"></i> Gerencie as ordens de serviço do sistema.
         </p>
 
     </div>
-
-    <a
-        href="/orders/create"
-        class="btn btn-primary"
-    >
-        Nova Ordem
-    </a>
 
     <form
         method="GET"
@@ -33,6 +32,12 @@ Ordens de Serviço
     >
 
         <div class="row g-2">
+                <a
+                    href="/orders/create"
+                    class="btn btn-primary"
+                >
+                    <i class="bi bi-plus"></i> Nova Ordem
+                </a>
 
             <div class="col-md-5">
 
@@ -55,7 +60,7 @@ Ordens de Serviço
                 >
 
                     <option value="">
-                        Todos Status
+                        <i class="bi bi-list"></i> Todos Status
                     </option>
 
                     <option
@@ -64,7 +69,7 @@ Ordens de Serviço
                         selected
                         {% endif %}
                     >
-                        Aberto
+                        <i class="bi bi-clock"></i> Aberto
                     </option>
 
                     <option
@@ -73,7 +78,7 @@ Ordens de Serviço
                         selected
                         {% endif %}
                     >
-                        Em andamento
+                        <i class="bi bi-gear"></i> Em andamento
                     </option>
 
                     <option
@@ -82,7 +87,7 @@ Ordens de Serviço
                         selected
                         {% endif %}
                     >
-                        Finalizado
+                        <i class="bi bi-check-circle"></i> Finalizado
                     </option>
 
                 </select>
@@ -103,7 +108,7 @@ Ordens de Serviço
                         selected
                         {% endif %}
                     >
-                        Recentes
+                        <i class="bi bi-clock"></i> Recentes
                     </option>
 
                     <option
@@ -112,7 +117,7 @@ Ordens de Serviço
                         selected
                         {% endif %}
                     >
-                        Antigas
+                        <i class="bi bi-clock"></i> Antigas
                     </option>
 
                 </select>
@@ -126,7 +131,7 @@ Ordens de Serviço
                     type="submit"
                     class="btn btn-dark"
                 >
-                    Filtrar
+                    <i class="bi bi-filter"></i> Filtrar
                 </button>
 
             </div>
@@ -224,7 +229,7 @@ Ordens de Serviço
                             href="/orders/{{ order.id }}/edit"
                             class="btn btn-sm btn-outline-primary"
                         >
-                            Editar
+                            <i class="bi bi-pencil"></i> Editar
                         </a>
 
                         <button
@@ -235,7 +240,7 @@ Ordens de Serviço
                             data-bs-toggle="modal"
                             data-bs-target="#deleteOrderModal"
                         >
-                            Excluir
+                            <i class="bi bi-trash"></i> Excluir
                         </button>
 
                     </td>
@@ -293,11 +298,11 @@ Ordens de Serviço
     <div class="text-center py-5">
 
         <h4>
-            Nenhuma ordem cadastrada
+            <i class="bi bi-exclamation-triangle"></i> Nenhuma ordem cadastrada
         </h4>
 
         <p class="text-muted">
-            Crie sua primeira ordem de serviço.
+            <i class="bi bi-info-circle"></i> Crie sua primeira ordem de serviço.
         </p>
 
     </div>
@@ -319,7 +324,7 @@ Ordens de Serviço
             <div class="modal-header">
 
                 <h5 class="modal-title">
-                    Confirmar exclusão?
+                    <i class="bi bi-exclamation-triangle"></i> Confirmar exclusão?
                 </h5>
 
                 <button
@@ -332,7 +337,7 @@ Ordens de Serviço
 
             <div class="modal-body">
 
-                Deseja realmente excluir a ordem:
+                <i class="bi bi-exclamation-triangle"></i> Deseja realmente excluir a ordem:
 
                 <strong id="deleteOrderTitle"></strong>?
 
@@ -345,7 +350,7 @@ Ordens de Serviço
                     class="btn btn-secondary"
                     data-bs-dismiss="modal"
                 >
-                    Cancelar
+                    <i class="bi bi-x"></i> Cancelar
                 </button>
 
                 <form
@@ -357,7 +362,7 @@ Ordens de Serviço
                         type="submit"
                         class="btn btn-danger"
                     >
-                        Excluir
+                        <i class="bi bi-trash"></i> Excluir
                     </button>
 
                 </form>

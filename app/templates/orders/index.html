@@ -6,155 +6,119 @@ Ordens de Serviço
 
 {% block content %}
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-
+<div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
     <div>
-
-        <h1 class="page-title">
+        <h1 class="page-title mb-1">
             <img
                 src="/static/images/orders.png"
-                alt="Ícone de ordens de serviço"
+                alt="Ícone de ordens"
                 class="me-2"
-                style="width: 90px; height: 70px;"
+                style="width:90px;height:70px;"
             >
             Ordens de Serviço
         </h1>
-
-        <p class="text-muted">
-            <i class="bi bi-list-task"></i> Gerencie as ordens de serviço do sistema.
+        <p class="text-muted mb-0">
+            <i class="bi bi-list-task"></i>
+            Gerencie todas as ordens cadastradas.
         </p>
-
     </div>
-
-    <form
-        method="GET"
-        class="mb-4"
+    <a
+        href="/orders/create"
+        class="btn btn-primary btn-lg"
     >
-
-        <div class="row g-2">
-                <a
-                    href="/orders/create"
-                    class="btn btn-primary"
-                >
-                    <i class="bi bi-plus"></i> Nova Ordem
-                </a>
-
-            <div class="col-md-5">
-
-                <input
-                    type="text"
-                    name="search"
-                    class="form-control"
-                    placeholder="Buscar por título..."
-                    value="{{ search }}"
-                >
-
-            </div>
-
-
-            <div class="col-md-3">
-
-                <select
-                    name="status"
-                    class="form-select"
-                >
-
-                    <option value="">
-                        <i class="bi bi-list"></i> Todos Status
-                    </option>
-
-                    <option
-                        value="Aberto"
-                        {% if status == "Aberto" %}
-                        selected
-                        {% endif %}
-                    >
-                        <i class="bi bi-clock"></i> Aberto
-                    </option>
-
-                    <option
-                        value="Em andamento"
-                        {% if status == "Em andamento" %}
-                        selected
-                        {% endif %}
-                    >
-                        <i class="bi bi-gear"></i> Em andamento
-                    </option>
-
-                    <option
-                        value="Finalizado"
-                        {% if status == "Finalizado" %}
-                        selected
-                        {% endif %}
-                    >
-                        <i class="bi bi-check-circle"></i> Finalizado
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="col-md-2">
-
-                <select
-                    name="sort"
-                    class="form-select"
-                >
-
-                    <option
-                        value="newest"
-                        {% if sort == "newest" %}
-                        selected
-                        {% endif %}
-                    >
-                        <i class="bi bi-clock"></i> Recentes
-                    </option>
-
-                    <option
-                        value="oldest"
-                        {% if sort == "oldest" %}
-                        selected
-                        {% endif %}
-                    >
-                        <i class="bi bi-clock"></i> Antigas
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <div class="col-md-2 d-grid">
-
-                <button
-                    type="submit"
-                    class="btn btn-dark"
-                >
-                    <i class="bi bi-filter"></i> Filtrar
-                </button>
-
-            </div>
-
-        </div>
-
-    </form>
-
+        <i class="bi bi-plus-circle"></i>
+        Nova Ordem
+    </a>
 </div>
 
+<form method="GET" action="{{ url_for('order_service.index') }}">
+    <div class="row g-3 mb-4">
+        <div class="col-md-5">
+            <input
+                type="text"
+                name="search"
+                class="form-control"
+                placeholder="Buscar por título..."
+                value="{{ search }}"
+            >
+        </div>
+
+        <div class="col-md-3">
+            <select
+                name="status"
+                class="form-select"
+            >
+                <option value="">
+                    Todos Status
+                </option>
+                <option
+                    value="Aberto"
+                    {% if status == "Aberto" %}
+                    selected
+                    {% endif %}
+                >
+                    Aberto
+                </option>
+                <option
+                    value="Em andamento"
+                    {% if status == "Em andamento" %}
+                    selected
+                    {% endif %}
+                >
+                    Em andamento
+                </option>
+                <option
+                    value="Finalizado"
+                    {% if status == "Finalizado" %}
+                    selected
+                    {% endif %}
+                >
+                    Finalizado
+                </option>
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <select
+                name="sort"
+                class="form-select"
+            >
+                <option
+                    value="newest"
+                    {% if sort == "newest" %}
+                    selected
+                    {% endif %}
+                >
+                    Recentes
+                </option>
+                <option
+                    value="oldest"
+                    {% if sort == "oldest" %}
+                    selected
+                    {% endif %}
+                >
+                    Antigas
+                </option>
+            </select>
+        </div>
+
+        <div class="col-md-2 d-grid">
+            <button
+                type="submit"
+                class="btn btn-dark"
+            >
+                <i class="bi bi-filter"></i> Filtrar
+            </button>
+        </div>
+    </div>
+</form>
 
 <div class="table-container shadow-sm">
-
     {% if orders.items %}
-
     <div class="table-responsive">
-
         <table class="table table-hover align-middle">
-
             <thead>
-
                 <tr>
-
                     <th>ID</th>
                     <th>Título</th>
                     <th>Equipamento</th>
@@ -162,76 +126,44 @@ Ordens de Serviço
                     <th>Status</th>
                     <th>Data</th>
                     <th class="text-center">Ações</th>
-
                 </tr>
-
             </thead>
-
             <tbody>
-
                 {% for order in orders.items %}
-
                 <tr>
-
                     <td>{{ order.id }}</td>
-
                     <td>
-                        <strong>
-                            {{ order.title }}
-                        </strong>
+                        <strong>{{ order.title }}</strong>
                     </td>
-
+                    <td>{{ order.equipment }}</td>
+                    <td>{{ order.client.name }}</td>
                     <td>
-                        {{ order.equipment }}
-                    </td>
-
-                    <td>
-                        {{ order.client.name }}
-                    </td>
-
-                    <td>
-
                         {% if order.status == "Aberto" %}
-
                         <span class="badge bg-warning text-dark">
                             {{ order.status }}
                         </span>
-
                         {% elif order.status == "Em andamento" %}
-
                         <span class="badge bg-primary">
                             {{ order.status }}
                         </span>
-
                         {% elif order.status == "Finalizado" %}
-
                         <span class="badge bg-success">
                             {{ order.status }}
                         </span>
-
                         {% else %}
-
                         <span class="badge bg-secondary">
                             {{ order.status }}
                         </span>
-
                         {% endif %}
-
                     </td>
-
-                    <td>
-                        {{ order.created_at.strftime('%d/%m/%Y') }}
-                    </td>
-
+                    <td>{{ order.created_at.strftime('%d/%m/%Y') }}</td>
                     <td class="text-center action-buttons">
-
                         <a
                             href="/orders/{{ order.id }}/edit"
                             class="btn btn-sm btn-outline-primary"
                         >
                             <i class="bi bi-pencil"></i> Editar
                         </a>
-
                         <button
                             type="button"
                             class="btn btn-sm btn-outline-danger open-delete-order-modal"
@@ -242,137 +174,63 @@ Ordens de Serviço
                         >
                             <i class="bi bi-trash"></i> Excluir
                         </button>
-
                     </td>
-
                 </tr>
-
                 {% endfor %}
-
             </tbody>
-
         </table>
 
         <nav class="mt-4">
-
             <ul class="pagination justify-content-center">
-
                 {% for page_num in orders.iter_pages() %}
-
                     {% if page_num %}
-
-                        <li
-                            class="page-item
-                            {% if page_num == orders.page %}
-                            active
-                            {% endif %}"
-                        >
-
-                            <a
-                                class="page-link"
-                                href="{{ url_for(
-                                    'order_service.index',
-                                    page=page_num,
-                                    search=search,
-                                    status=status,
-                                    sort=sort
-                                ) }}"
-                            >
+                        <li class="page-item {% if page_num == orders.page %}active{% endif %}">
+                            <a class="page-link" href="{{ url_for('order_service.index', page=page_num, search=search, status=status, sort=sort) }}">
                                 {{ page_num }}
                             </a>
-
                         </li>
-
                     {% endif %}
-
                 {% endfor %}
-
             </ul>
-
         </nav>
-
     </div>
-
     {% else %}
-
     <div class="text-center py-5">
-
         <h4>
             <i class="bi bi-exclamation-triangle"></i> Nenhuma ordem cadastrada
         </h4>
-
         <p class="text-muted">
             <i class="bi bi-info-circle"></i> Crie sua primeira ordem de serviço.
         </p>
-
     </div>
-
     {% endif %}
-
 </div>
 
-<div
-    class="modal fade"
-    id="deleteOrderModal"
-    tabindex="-1"
->
-
+<div class="modal fade" id="deleteOrderModal" tabindex="-1">
     <div class="modal-dialog">
-
         <div class="modal-content">
-
             <div class="modal-header">
-
                 <h5 class="modal-title">
                     <i class="bi bi-exclamation-triangle"></i> Confirmar exclusão?
                 </h5>
-
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="modal"
-                ></button>
-
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-
             <div class="modal-body">
-
-                <i class="bi bi-exclamation-triangle"></i> Deseja realmente excluir a ordem:
-
+                Deseja realmente excluir a ordem:
                 <strong id="deleteOrderTitle"></strong>?
-
             </div>
-
             <div class="modal-footer">
-
-                <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                >
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                     <i class="bi bi-x"></i> Cancelar
                 </button>
-
-                <form
-                    id="deleteOrderForm"
-                    method="POST"
-                >
-
-                    <button
-                        type="submit"
-                        class="btn btn-danger"
-                    >
+                <form id="deleteOrderForm" method="POST">
+                    <button type="submit" class="btn btn-danger">
                         <i class="bi bi-trash"></i> Excluir
                     </button>
-
                 </form>
-
             </div>
-
         </div>
-
     </div>
-
 </div>
 
 {% endblock %}

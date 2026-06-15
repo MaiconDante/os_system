@@ -270,3 +270,67 @@ body {
     margin-right: 0.2rem;
     opacity: 0.8;
 }
+
+.dashboard-stat-card {
+
+    background: white;
+
+    border-radius: 16px;
+
+    padding: 1.5rem;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    box-shadow: 0 4px 15px rgba(
+        0,
+        0,
+        0,
+        0.05
+    );
+
+    transition: 0.2s ease;
+}
+
+.dashboard-stat-card:hover {
+
+    transform: translateY(-4px);
+}
+
+.dashboard-stat-card h6 {
+
+    color: #6b7280;
+
+    margin-bottom: .5rem;
+}
+
+.dashboard-stat-card h2 {
+
+    margin: 0;
+
+    font-weight: 700;
+}
+
+.dashboard-stat-card i {
+
+    font-size: 2rem;
+}
+
+.clients-card i {
+    color: #2563eb;
+}
+
+.orders-card i {
+    color: #7c3aed;
+}
+
+.open-card i {
+    color: #d97706;
+}
+
+.completed-card i {
+    color: #16a34a;
+}

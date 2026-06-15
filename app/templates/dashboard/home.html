@@ -6,101 +6,67 @@ Dashboard
 
 {% block content %}
 
-<!-- DASHBOARD -->
-<div class="mb-4">
-    <!-- TÍTULO DA PÁGINA -->
-    <h1 class="page-title">
-        <img src="{{ url_for('static', filename='images/dashboard.png') }}" alt="Dashboard">
-        Dashboard
-    </h1>
-    <!-- DESCRIÇÃO DA PÁGINA -->
-    <p class="text-muted">
-        <i class="bi bi-speedometer2"></i> Visão geral do sistema.
-    </p>
+<h2 class="mb-4">
+    Dashboard
+</h2>
 
-</div>
-
-<!-- CARDS DE RESUMO -->
 <div class="row g-4 mb-4">
-    <!-- CARD DE CLIENTES -->
-    <div class="col-md-3">
-        <!-- CARD DE CLIENTES -->
-        <div class="card dashboard-card shadow-sm">
-            <!-- CORPO DO CARD -->
-            <div class="card-body">
-                <!-- TÍTULO DO CARD -->
-                <h6 class="text-muted">
-                    Clientes
-                </h6>
-                <!-- VALOR DO CARD -->
-                <h2>
-                    {{ total_clients }}
-                </h2>
 
+    <div class="col-md-3">
+
+        <div class="dashboard-stat-card clients-card">
+
+            <div>
+                <h6>Clientes</h6>
+                <h2>{{ total_clients }}</h2>
             </div>
+
+            <i class="bi bi-people-fill"></i>
 
         </div>
 
     </div>
 
-    <!-- CARD DE TÉCNICOS -->
     <div class="col-md-3">
-        <!-- CARD DE TÉCNICOS -->
-        <div class="card dashboard-card shadow-sm">
 
-            <div class="card-body">
-                <!-- TÍTULO DO CARD -->
-                <h6 class="text-muted">
-                    Ordens
-                </h6>
-                <!-- VALOR DO CARD -->
-                <h2>
-                    {{ total_orders }}
-                </h2>
+        <div class="dashboard-stat-card orders-card">
 
+            <div>
+                <h6>Ordens</h6>
+                <h2>{{ total_orders }}</h2>
             </div>
+
+            <i class="bi bi-tools"></i>
 
         </div>
 
     </div>
 
-    <!-- CARD DE ORDENS EM ABERTO -->
     <div class="col-md-3">
 
-        <div class="card dashboard-card shadow-sm">
+        <div class="dashboard-stat-card open-card">
 
-            <div class="card-body">
-
-                <h6 class="text-muted">
-                    Em Aberto
-                </h6>
-
-                <h2>
-                    {{ open_orders }}
-                </h2>
-
+            <div>
+                <h6>Em Aberto</h6>
+                <h2>{{ open_orders }}</h2>
             </div>
+
+            <i class="bi bi-hourglass-split"></i>
 
         </div>
 
     </div>
 
-    <!-- CARD DE ORDENS FINALIZADAS -->
     <div class="col-md-3">
 
-        <div class="card dashboard-card shadow-sm">
+        <div class="dashboard-stat-card completed-card">
 
-            <div class="card-body">
-
-                <h6 class="text-muted">
-                    Finalizadas
-                </h6>
-
-                <h2>
-                    {{ completed_orders }}
-                </h2>
-
+            <div>
+                <h6>Finalizadas</h6>
+                <h2>{{ completed_orders }}</h2>
             </div>
+
+            <i class="bi bi-check-circle-fill"></i>
 
         </div>
 
@@ -108,12 +74,85 @@ Dashboard
 
 </div>
 
-<!-- CARD DE ÚLTIMAS ORDENS -->
+<div class="card card-custom shadow-sm mb-4">
+
+    <div class="card-header">
+
+        <i class="bi bi-lightning-charge"></i>
+        Ações Rápidas
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="d-flex gap-2 flex-wrap">
+
+            <a href="/clients/create" class="btn btn-primary">
+                <i class="bi bi-person-plus"></i>
+                Novo Cliente
+            </a>
+
+            <a href="/orders/create" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i>
+                Nova Ordem
+            </a>
+
+            <a href="/clients" class="btn btn-outline-secondary">
+                Clientes
+            </a>
+
+            <a href="/orders" class="btn btn-outline-secondary">
+                Ordens
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="card card-custom shadow-sm mb-4">
+
+    <div class="card-header">
+
+        <i class="bi bi-pie-chart"></i>
+        Resumo das Ordens
+
+    </div>
+
+    <div class="card-body text-center">
+
+        <input
+            type="hidden"
+            id="openOrders"
+            value="{{ open_orders }}"
+        >
+
+        <input
+            type="hidden"
+            id="completedOrders"
+            value="{{ completed_orders }}"
+        >
+
+        <div
+            style="
+                max-width: 350px;
+                margin: 0 auto;
+            "
+        >
+            <canvas id="ordersChart"></canvas>
+        </div>
+
+    </div>
+
+</div>
+
 <div class="card card-custom shadow-sm">
 
     <div class="card-header">
 
-        <i class="bi bi-clock-history"></i> Últimas Ordens de Serviço
+        <i class="bi bi-clock-history"></i>
+        Últimas Ordens de Serviço
 
     </div>
 
@@ -123,18 +162,16 @@ Dashboard
 
         <div class="table-responsive">
 
-            <table class="table align-middle">
+            <table class="table table-hover align-middle">
 
                 <thead>
 
                     <tr>
-
                         <th>ID</th>
                         <th>Título</th>
                         <th>Cliente</th>
                         <th>Status</th>
                         <th>Criado em</th>
-
                     </tr>
 
                 </thead>
@@ -145,37 +182,37 @@ Dashboard
 
                     <tr>
 
-                        <td>
-                            #{{ order.id }}
-                        </td>
+                        <td>#{{ order.id }}</td>
 
-                        <td>
-                            {{ order.title }}
-                        </td>
+                        <td>{{ order.title }}</td>
 
-                        <td>
-                            {{ order.client.name }}
-                        </td>
+                        <td>{{ order.client.name }}</td>
 
                         <td>
 
                             {% if order.status == "Aberto" %}
 
-                            <span class="badge bg-warning text-dark">
-                                {{ order.status }}
-                            </span>
+                                <span class="badge bg-warning text-dark">
+                                    {{ order.status }}
+                                </span>
 
                             {% elif order.status == "Em andamento" %}
 
-                            <span class="badge bg-primary">
-                                {{ order.status }}
-                            </span>
+                                <span class="badge bg-primary">
+                                    {{ order.status }}
+                                </span>
 
                             {% elif order.status == "Finalizado" %}
 
-                            <span class="badge bg-success">
-                                {{ order.status }}
-                            </span>
+                                <span class="badge bg-success">
+                                    {{ order.status }}
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-secondary">
+                                    {{ order.status }}
+                                </span>
 
                             {% endif %}
 
@@ -197,14 +234,91 @@ Dashboard
 
         {% else %}
 
-        <p class="text-muted mb-0">
-            <i class="bi bi-exclamation-triangle"></i> Nenhuma ordem cadastrada.
-        </p>
+        <div class="alert alert-info mb-0">
+
+            <i class="bi bi-info-circle"></i>
+
+            Nenhuma ordem cadastrada.
+
+        </div>
 
         {% endif %}
 
     </div>
 
 </div>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const ctx =
+        document.getElementById(
+            "ordersChart"
+        );
+
+    if (!ctx) {
+        return;
+    }
+
+    const openOrders =
+        Number(
+            document.getElementById(
+                "openOrders"
+            ).value
+        );
+
+    const completedOrders =
+        Number(
+            document.getElementById(
+                "completedOrders"
+            ).value
+        );
+
+    new Chart(ctx, {
+
+        type: "doughnut",
+
+        data: {
+
+            labels: [
+                "Em Aberto",
+                "Finalizadas"
+            ],
+
+            datasets: [{
+
+                data: [
+                    openOrders,
+                    completedOrders
+                ]
+
+            }]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: true,
+
+            plugins: {
+
+                legend: {
+
+                    position: "bottom"
+
+                }
+
+            }
+
+        }
+
+    });
+
+});
+
+</script>
 
 {% endblock %}

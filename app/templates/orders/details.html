@@ -29,6 +29,84 @@ Detalhes da Ordem de Serviço
 
         <div class="row mb-4">
 
+            <div class="col-md-4">
+
+                <div class="border rounded p-3 h-100">
+
+                    <h6 class="text-muted">
+                        CLIENTE
+                    </h6>
+
+                    <strong>
+                        {{ order.client.name }}
+                    </strong>
+
+                    <br>
+
+                    <small>
+                        {{ order.client.phone or "-" }}
+                    </small>
+
+                    <br>
+
+                    <small>
+                        {{ order.client.email or "-" }}
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="border rounded p-3 h-100">
+
+                    <h6 class="text-muted">
+                        STATUS
+                    </h6>
+
+                    {% if order.status == "Aberto" %}
+
+                        <span class="badge bg-warning text-dark">
+                            {{ order.status }}
+                        </span>
+
+                    {% elif order.status == "Em andamento" %}
+
+                        <span class="badge bg-primary">
+                            {{ order.status }}
+                        </span>
+
+                    {% elif order.status == "Finalizado" %}
+
+                        <span class="badge bg-success">
+                            {{ order.status }}
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="border rounded p-3 h-100">
+
+                    <h6 class="text-muted">
+                        EQUIPAMENTO
+                    </h6>
+
+                    {{ order.equipment }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row mb-4">
+
             <div class="col-md-6">
 
                 <h6 class="text-muted">

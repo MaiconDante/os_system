@@ -124,7 +124,8 @@ Ordens de Serviço
                     <th>Equipamento</th>
                     <th>Cliente</th>
                     <th>Status</th>
-                    <th>Data</th>
+                    <th>Abertura</th>
+                    <th>Encerramento</th>
                     <th class="text-center">Ações</th>
                 </tr>
             </thead>
@@ -157,7 +158,15 @@ Ordens de Serviço
                         {% endif %}
                     </td>
                     <td>{{ order.created_at.strftime('%d/%m/%Y') }}</td>
+                    <td>
+                        {% if order.closed_at %}
+                        {{ order.closed_at.strftime('%d/%m/%Y') }}
+                        {% else %}
+                        -
+                        {% endif %}
+                    </td>
                     <td class="text-center action-buttons">
+                        {% if order.status != "Finalizado" %}
                         <a
                             href="/orders/{{ order.id }}/edit"
                             class="btn btn-sm btn-outline-primary"
@@ -174,6 +183,7 @@ Ordens de Serviço
                         >
                             <i class="bi bi-trash"></i> Excluir
                         </button>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endfor %}

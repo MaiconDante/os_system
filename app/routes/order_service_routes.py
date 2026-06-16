@@ -186,6 +186,17 @@ def edit(order_id):
         order_id
     )
 
+    if order.status == "Finalizado":
+
+        flash(
+            "Ordens finalizadas não podem ser editadas.",
+            "danger"
+        )
+
+        return redirect(
+            url_for("order_service.index")
+        )
+
 
     clients = Client.query.order_by(
         Client.name.asc()
@@ -266,6 +277,16 @@ def delete(order_id):
         order_id
     )
 
+    if order.status == "Finalizado":
+
+        flash(
+            "Ordens finalizadas não podem ser excluídas.",
+            "danger"
+        )
+
+        return redirect(
+            url_for("order_service.index")
+        )
 
     db.session.delete(order)
 

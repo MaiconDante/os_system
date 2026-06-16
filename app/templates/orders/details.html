@@ -6,14 +6,22 @@ Detalhes da Ordem de Serviço
 
 {% block content %}
 
-<h1 class="page-title">
-    <i class="bi bi-file-earmark-text"></i>
-    Ordem de Serviço #{{ order.id }}
-</h1>
+<div class="card shadow-sm mb-4">
 
-<p class="text-muted">
-    Visualização completa da ordem de serviço.
-</p>
+    <div class="card-body text-center">
+
+        <h2 class="fw-bold mb-2">
+            <i class="bi bi-tools"></i>
+            ORDEM DE SERVIÇO
+        </h2>
+
+        <h4 class="text-primary">
+            Nº {{ order.id }}
+        </h4>
+
+    </div>
+
+</div>
 
 <div class="card shadow-sm">
 
@@ -23,7 +31,9 @@ Detalhes da Ordem de Serviço
 
             <div class="col-md-6">
 
-                <h5>Título</h5>
+                <h6 class="text-muted">
+                    TÍTULO
+                </h6>
 
                 <p>
                     {{ order.title }}
@@ -33,7 +43,9 @@ Detalhes da Ordem de Serviço
 
             <div class="col-md-6">
 
-                <h5>Equipamento</h5>
+                <h6 class="text-muted">
+                    EQUIPAMENTO
+                </h6>
 
                 <p>
                     {{ order.equipment }}
@@ -47,7 +59,9 @@ Detalhes da Ordem de Serviço
 
             <div class="col-md-6">
 
-                <h5>Cliente</h5>
+                <h6 class="text-muted">
+                    CLIENTE
+                </h6>
 
                 <p>
                     {{ order.client.name }}
@@ -57,7 +71,9 @@ Detalhes da Ordem de Serviço
 
             <div class="col-md-6">
 
-                <h5>Status</h5>
+                <h6 class="text-muted">
+                    STATUS
+                </h6>
 
                 {% if order.status == "Aberto" %}
 
@@ -87,21 +103,29 @@ Detalhes da Ordem de Serviço
 
         <div class="mb-4">
 
-            <h5>Descrição do Problema</h5>
+            <h6 class="text-muted">
+                DESCRIÇÃO DO PROBLEMA
+            </h6>
 
-            <p>
+            <div class="border rounded p-3 bg-light">
+
                 {{ order.description }}
-            </p>
+
+            </div>
 
         </div>
 
         <div class="mb-4">
 
-            <h5>Observações Técnicas</h5>
+            <h6 class="text-muted">
+                OBSERVAÇÕES TÉCNICAS
+            </h6>
 
-            <p>
+            <div class="border rounded p-3 bg-light">
+
                 {{ order.technical_notes or "Nenhuma observação registrada." }}
-            </p>
+
+            </div>
 
         </div>
 
@@ -111,7 +135,9 @@ Detalhes da Ordem de Serviço
 
             <div class="col-md-6">
 
-                <h6>Abertura</h6>
+                <h6 class="text-muted">
+                    ABERTURA
+                </h6>
 
                 <p>
                     {{ order.created_at.strftime('%d/%m/%Y %H:%M') }}
@@ -121,7 +147,9 @@ Detalhes da Ordem de Serviço
 
             <div class="col-md-6">
 
-                <h6>Encerramento</h6>
+                <h6 class="text-muted">
+                    ENCERRAMENTO
+                </h6>
 
                 <p>
 
@@ -145,7 +173,7 @@ Detalhes da Ordem de Serviço
 
 </div>
 
-<div class="mt-3">
+<div class="mt-4 d-flex gap-2">
 
     <a
         href="{{ url_for('order_service.index') }}"
@@ -154,6 +182,15 @@ Detalhes da Ordem de Serviço
         <i class="bi bi-arrow-left"></i>
         Voltar
     </a>
+
+    <button
+        type="button"
+        class="btn btn-primary"
+        onclick="window.print()"
+    >
+        <i class="bi bi-printer"></i>
+        Imprimir
+    </button>
 
 </div>
 

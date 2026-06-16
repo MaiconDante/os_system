@@ -334,3 +334,28 @@ body {
 .completed-card i {
     color: #16a34a;
 }
+
+/* ==========================
+   IMPRESSÃO
+========================== */
+
+@media print {
+
+    .sidebar {
+        display: none !important;
+    }
+
+    .btn {
+        display: none !important;
+    }
+
+    .main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    .alert {
+        display: none !important;
+    }
+
+}

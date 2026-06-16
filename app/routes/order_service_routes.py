@@ -6,6 +6,7 @@ from flask import (
     url_for,
     flash
 )
+from datetime import datetime
 from app import db
 from app.models.order_service_model import OrderService
 from app.models.client_model import Client
@@ -149,6 +150,10 @@ def create():
         )
 
 
+        if status == "Finalizado":
+            new_order.closed_at = datetime.utcnow()
+
+
         db.session.add(new_order)
 
         db.session.commit()
@@ -208,6 +213,10 @@ def edit(order_id):
         order.status = request.form.get(
             "status"
         )
+
+        if order.status == "Finalizado" and order.closed_at is None:
+
+            order.closed_at = datetime.utcnow()
 
         order.client_id = request.form.get(
             "client_id"

@@ -56,6 +56,12 @@ class OrderService(db.Model):
         onupdate=datetime.utcnow
     )
 
+    # A data e hora de fechamento da ordem de serviço, que é um campo opcional (nullable=True) e pode ser preenchido quando a ordem for fechada
+    closed_at = db.Column(
+    db.DateTime,
+    nullable=True
+    )
+
     # A chave estrangeira para o cliente associado à ordem de serviço, que é um campo obrigatório (nullable=False) e referencia a tabela "clients"
     client_id = db.Column(
         db.Integer,

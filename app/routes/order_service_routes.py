@@ -91,6 +91,23 @@ def index():
         sort=sort
     )
 
+# Rota para exibir os detalhes de uma ordem de serviço específica
+@order_service_bp.route(
+    "/<int:order_id>"
+)
+@login_required
+def details(order_id):
+
+    order = OrderService.query.get_or_404(
+        order_id
+    )
+
+    return render_template(
+        "orders/details.html",
+        order=order
+    )
+
+
 # Rota para criar uma nova ordem de serviço
 @order_service_bp.route("/create", methods=["GET", "POST"])
 @login_required

@@ -166,6 +166,13 @@ Ordens de Serviço
                         {% endif %}
                     </td>
                     <td class="text-center action-buttons">
+                        <a
+                            href="{{ url_for('order_service.details', order_id=order.id) }}"
+                            class="btn btn-sm btn-outline-secondary"
+                        >
+                            <i class="bi bi-eye"></i>
+                            Visualizar
+                        </a>
                         {% if order.status != "Finalizado" %}
                         <a
                             href="/orders/{{ order.id }}/edit"

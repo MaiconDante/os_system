@@ -175,10 +175,11 @@ Detalhes da Ordem de Serviço
 
         <div class="row mt-4">
 
-            <div class="col-md-6">
+            <!-- ABERTURA -->
+            <div class="col-md-4">
 
-                <div class="border rounded p-3 bg-light h-100">
-
+                <div class="border rounded p-3 bg-light h-100 os-date-card">
+                    
                     <h6 class="text-muted">
                         <i class="bi bi-calendar-event"></i>
                         ABERTURA
@@ -192,9 +193,10 @@ Detalhes da Ordem de Serviço
 
             </div>
 
-            <div class="col-md-6">
+            <!-- ENCERRAMENTO -->
+            <div class="col-md-4">
 
-                <div class="border rounded p-3 bg-light h-100">
+                <div class="border rounded p-3 bg-light h-100 os-date-card">
 
                     <h6 class="text-muted">
                         <i class="bi bi-calendar-check"></i>
@@ -204,9 +206,41 @@ Detalhes da Ordem de Serviço
                     <strong>
 
                         {% if order.closed_at %}
+
                             {{ order.closed_at.strftime('%d/%m/%Y %H:%M') }}
+
                         {% else %}
+
                             Em aberto
+
+                        {% endif %}
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <!-- TEMPO DE ATENDIMENTO -->
+            <div class="col-md-4">
+
+                <div class="border rounded p-3 bg-light h-100 os-date-card">
+
+                    <h6 class="text-muted">
+                        <i class="bi bi-stopwatch"></i>
+                        TEMPO DE ATENDIMENTO
+                    </h6>
+
+                    <strong>
+
+                        {% if service_time %}
+
+                            {{ service_time }}
+
+                        {% else %}
+
+                            Em andamento
+
                         {% endif %}
 
                     </strong>

@@ -102,11 +102,50 @@ def details(order_id):
         order_id
     )
 
+    service_time = None
+
+    if order.closed_at:
+
+        difference = (
+            order.closed_at -
+            order.created_at
+        )
+
+        days = difference.days
+
+        hours = (
+            difference.seconds // 3600
+        )
+
+        minutes = (
+            difference.seconds % 3600
+        ) // 60
+
+        if days > 0:
+
+            service_time = (
+                f"{days} dia(s) "
+                f"e {hours} hora(s)"
+            )
+
+        elif hours > 0:
+
+            service_time = (
+                f"{hours} hora(s) "
+                f"e {minutes} minuto(s)"
+            )
+
+        else:
+
+            service_time = (
+                f"{minutes} minuto(s)"
+            )
+
     return render_template(
         "orders/details.html",
-        order=order
+        order=order,
+        service_time=service_time
     )
-
 
 # Rota para criar uma nova ordem de serviço
 @order_service_bp.route("/create", methods=["GET", "POST"])

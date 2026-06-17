@@ -405,3 +405,11 @@ body {
     min-height: 120px;
     box-shadow: 0 1px 3px rgba(0,0,0,.08);
 }
+
+.os-date-card {
+    transition: 0.2s ease;
+}
+
+.os-date-card:hover {
+    transform: translateY(-2px);
+}

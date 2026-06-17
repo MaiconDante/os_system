@@ -359,3 +359,49 @@ body {
     }
 
 }
+
+.os-title-box {
+
+    position: relative;
+
+    border: 1px solid #dee2e6;
+
+    border-radius: 10px;
+
+    padding: 20px;
+
+    min-height: 100px;
+
+    overflow: hidden;
+}
+
+.os-title-box strong {
+
+    position: relative;
+
+    z-index: 2;
+
+    font-size: 1.1rem;
+}
+
+.os-watermark {
+
+    right: 15px;
+
+    bottom: 10px;
+
+    width: 200px;
+
+    opacity: 0.5;
+
+    z-index: 1;
+}
+
+.os-info-card {
+    min-height: 120px;
+}
+
+.os-info-card {
+    min-height: 120px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.08);
+}

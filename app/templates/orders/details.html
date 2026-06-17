@@ -105,19 +105,35 @@ Detalhes da Ordem de Serviço
 
         </div>
 
-        <div class="row mb-4">
+        <div class="row mb-4 align-items-stretch">
 
-            <div class="col-md-6">
+            <div class="col-md-9">
 
-                <h6 class="text-muted">
-                    TÍTULO
-                </h6>
+                <div class="border rounded p-3 h-100 os-info-card">
 
-                <div class="border rounded p-3">
+                    <h6 class="text-muted mb-2">
+                        TÍTULO
+                    </h6>
 
                     <strong>
                         {{ order.title }}
                     </strong>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div
+                    class="border rounded p-3 h-100 os-info-card d-flex justify-content-center align-items-center"
+                >
+
+                    <img
+                        src="{{ url_for('static', filename='images/os.png') }}"
+                        alt="Logo"
+                        class="os-watermark"
+                    >
 
                 </div>
 
@@ -157,39 +173,45 @@ Detalhes da Ordem de Serviço
 
         <hr>
 
-        <div class="row">
+        <div class="row mt-4">
 
             <div class="col-md-6">
 
-                <h6 class="text-muted">
-                    ABERTURA
-                </h6>
+                <div class="border rounded p-3 bg-light h-100">
 
-                <p>
-                    {{ order.created_at.strftime('%d/%m/%Y %H:%M') }}
-                </p>
+                    <h6 class="text-muted">
+                        <i class="bi bi-calendar-event"></i>
+                        ABERTURA
+                    </h6>
+
+                    <strong>
+                        {{ order.created_at.strftime('%d/%m/%Y %H:%M') }}
+                    </strong>
+
+                </div>
 
             </div>
 
             <div class="col-md-6">
 
-                <h6 class="text-muted">
-                    ENCERRAMENTO
-                </h6>
+                <div class="border rounded p-3 bg-light h-100">
 
-                <p>
+                    <h6 class="text-muted">
+                        <i class="bi bi-calendar-check"></i>
+                        ENCERRAMENTO
+                    </h6>
 
-                    {% if order.closed_at %}
+                    <strong>
 
-                        {{ order.closed_at.strftime('%d/%m/%Y %H:%M') }}
+                        {% if order.closed_at %}
+                            {{ order.closed_at.strftime('%d/%m/%Y %H:%M') }}
+                        {% else %}
+                            Em aberto
+                        {% endif %}
 
-                    {% else %}
+                    </strong>
 
-                        -
-
-                    {% endif %}
-
-                </p>
+                </div>
 
             </div>
 

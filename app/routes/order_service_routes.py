@@ -7,6 +7,7 @@ from flask import (
     flash,
     send_file
 )
+from reportlab.lib import colors
 import os
 from io import BytesIO
 from reportlab.pdfgen import canvas
@@ -165,6 +166,16 @@ def generate_pdf(order_id):
 
     pdf = canvas.Canvas(buffer)
 
+    pdf.setTitle(
+        f"OS_{order.id}"
+    )
+
+    y = 760
+
+    # =========================
+    # CABEÇALHO
+    # =========================
+
     logo_path = os.path.join(
         "app",
         "static",
@@ -176,126 +187,22 @@ def generate_pdf(order_id):
 
         pdf.drawImage(
         logo_path,
-        240,
-        730,
+        250,
+        775,
         width=120,
         height=60,
         preserveAspectRatio=True,
         mask="auto"
     )
 
-    pdf.setTitle(
-        f"OS_{order.id}"
-    )
-
-    y = 700
-
-    # CLIENTE
-
     pdf.setFont(
         "Helvetica-Bold",
-        12
-    )
-
-    pdf.drawString(
-        50,
-        620,
-        "CLIENTE"
-    )
-
-
-    pdf.roundRect(
-        45,
-        530,
-        500,
-        80,
-        8
-    )
-
-
-    pdf.setFont(
-        "Helvetica",
-        11
-    )
-
-
-    pdf.drawString(
-        60,
-        580,
-        f"Nome: {order.client.name}"
-    )
-
-
-    pdf.drawString(
-        60,
-        560,
-        f"Telefone: {order.client.phone or '-'}"
-    )
-
-
-    pdf.drawString(
-        60,
-        540,
-        f"E-mail: {order.client.email or '-'}"
-    )
-
-    # DADOS DA ORDEM
-
-    pdf.setFont(
-        "Helvetica-Bold",
-        12
-    )
-
-    pdf.drawString(
-        50,
-        500,
-        "DADOS DA ORDEM"
-    )
-
-
-    pdf.roundRect(
-        45,
-        410,
-        500,
-        80,
-        8
-    )
-
-
-    pdf.setFont(
-        "Helvetica",
-        11
-    )
-
-
-    pdf.drawString(
-        60,
-        460,
-        f"Equipamento: {order.equipment}"
-    )
-
-
-    pdf.drawString(
-        60,
-        440,
-        f"Status: {order.status}"
-    )
-
-
-    pdf.drawString(
-        60,
-        420,
-        f"OS Nº: {order.id}"
-    )
-
-    pdf.setFont(
-        "Helvetica-Bold",
-        18
+        20
     )
 
     pdf.drawCentredString(
         300,
-        700,
+        y,
         "ORDEM DE SERVIÇO"
     )
 
@@ -306,11 +213,134 @@ def generate_pdf(order_id):
 
     pdf.drawCentredString(
         300,
-        680,
+        y - 25,
         f"Nº {order.id}"
     )
 
-    y -= 40
+    # =========================
+    # CLIENTE
+    # =========================
+
+    pdf.setFont(
+        "Helvetica-Bold",
+        12
+    )
+
+    pdf.drawString(
+        50,
+        650,
+        "CLIENTE"
+    )
+
+    pdf.roundRect(
+        45,
+        560,
+        500,
+        80,
+        8
+    )
+
+    pdf.setFont(
+        "Helvetica",
+        11
+    )
+
+    pdf.drawString(
+        60,
+        610,
+        f"Nome: {order.client.name}"
+    )
+
+    pdf.drawString(
+        60,
+        590,
+        f"Telefone: {order.client.phone or '-'}"
+    )
+
+    pdf.drawString(
+        60,
+        570,
+        f"E-mail: {order.client.email or '-'}"
+    )
+
+    # =========================
+    # DADOS DA ORDEM
+    # =========================
+
+    pdf.setFont(
+        "Helvetica-Bold",
+        12
+    )
+
+    pdf.drawString(
+        50,
+        530,
+        "DADOS DA ORDEM"
+    )
+
+    pdf.roundRect(
+        45,
+        420,
+        500,
+        100,
+        8
+    )
+
+    pdf.setFont(
+        "Helvetica",
+        11
+    )
+
+    pdf.drawString(
+        60,
+        490,
+        f"Título: {order.title}"
+    )
+
+    pdf.drawString(
+        60,
+        470,
+        f"Equipamento: {order.equipment}"
+    )
+
+    pdf.setFont(
+        "Helvetica-Bold",
+        11
+    )
+
+    pdf.drawString(
+        60,
+        450,
+        "Status:"
+    )
+
+    if order.status == "Aberto":
+
+        pdf.setFillColor(colors.orange)
+
+    elif order.status == "Em andamento":
+
+        pdf.setFillColor(colors.blue)
+
+    else:
+
+        pdf.setFillColor(colors.green)
+
+    pdf.drawString(
+        110,
+        450,
+        order.status
+    )
+
+    pdf.setFillColor(
+        colors.black
+    )
+
+    pdf.drawString(
+        60,
+        430,
+        f"OS Nº: {order.id}"
+    )
 
     pdf.setFont(
         "Helvetica-Bold",
@@ -323,27 +353,24 @@ def generate_pdf(order_id):
         "DESCRIÇÃO DO PROBLEMA"
     )
 
-
-    pdf.rect(
+    pdf.roundRect(
         45,
         280,
         500,
-        90
+        90,
+        8
     )
-
 
     pdf.setFont(
         "Helvetica",
         11
     )
 
-
     descricao = order.description or "-"
-
 
     pdf.drawString(
         60,
-        340,
+        330,
         descricao[:90]
     )
 
@@ -358,27 +385,24 @@ def generate_pdf(order_id):
         "OBSERVAÇÕES TÉCNICAS"
     )
 
-
-    pdf.rect(
+    pdf.roundRect(
         45,
-        150,
+        140,
         500,
-        80
+        90,
+        8
     )
-
 
     pdf.setFont(
         "Helvetica",
         11
     )
 
-
     observacoes = order.technical_notes or "-"
-
 
     pdf.drawString(
         60,
-        200,
+        190,
         observacoes[:90]
     )
 
@@ -389,16 +413,16 @@ def generate_pdf(order_id):
 
     pdf.drawString(
         50,
-        120,
+        110,
         "INFORMAÇÕES DO ATENDIMENTO"
     )
 
-
-    pdf.rect(
+    pdf.roundRect(
         45,
-        40,
+        45,
         500,
-        60
+        50,
+        8
     )
 
 
@@ -478,16 +502,16 @@ def generate_pdf(order_id):
     )
 
     pdf.line(
-        80,
+        70,
         20,
-        250,
+        240,
         20
     )
 
     pdf.line(
-        340,
+        350,
         20,
-        510,
+        520,
         20
     )
 
@@ -497,13 +521,13 @@ def generate_pdf(order_id):
     )
 
     pdf.drawCentredString(
-        165,
+        155,
         8,
         "Assinatura do Técnico"
     )
 
     pdf.drawCentredString(
-        425,
+        435,
         8,
         "Assinatura do Cliente"
     )

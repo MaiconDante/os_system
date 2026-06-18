@@ -7,6 +7,7 @@ from flask import (
     flash,
     send_file
 )
+import os
 from io import BytesIO
 from reportlab.pdfgen import canvas
 from datetime import datetime
@@ -164,32 +165,122 @@ def generate_pdf(order_id):
 
     pdf = canvas.Canvas(buffer)
 
+    logo_path = os.path.join(
+        "app",
+        "static",
+        "images",
+        "os.png"
+    )
+
+    if os.path.exists(logo_path):
+
+        pdf.drawImage(
+            logo_path,
+            50,
+            740,
+            width=140,
+            height=45,
+            preserveAspectRatio=True
+        )
+
     pdf.setTitle(
         f"OS_{order.id}"
     )
 
-    pdf.drawString(
-        100,
-        800,
-        f"ORDEM DE SERVIÇO Nº {order.id}"
+    y = 700
+
+    pdf.setFont(
+        "Helvetica-Bold",
+        18
     )
+
+    pdf.drawCentredString(
+        300,
+        790,
+        "ORDEM DE SERVIÇO"
+    )
+
+    pdf.setFont(
+        "Helvetica",
+        12
+    )
+
+    pdf.drawCentredString(
+        300,
+        770,
+        f"Nº {order.id}"
+    )
+
+    y -= 40
 
     pdf.drawString(
         100,
-        770,
+        y,
         f"Cliente: {order.client.name}"
     )
 
-    pdf.drawString(
-        100,
-        740,
-        f"Equipamento: {order.equipment}"
-    )
+    y -= 25
 
     pdf.drawString(
         100,
-        710,
+        y,
+        f"Telefone: {order.client.phone or '-'}"
+    )
+
+    y -= 25
+
+    pdf.drawString(
+        100,
+        y,
+        f"E-mail: {order.client.email or '-'}"
+    )
+
+    y -= 25
+
+    pdf.drawString(
+        100,
+        y,
+        f"Equipamento: {order.equipment}"
+    )
+
+    y -= 25
+
+    pdf.drawString(
+        100,
+        y,
         f"Status: {order.status}"
+    )
+
+    y -= 40
+
+    pdf.drawString(
+        100,
+        y,
+        "Descrição:"
+    )
+
+    y -= 20
+
+    pdf.drawString(
+        120,
+        y,
+        order.description[:100]
+    )
+
+    y -= 40
+
+    pdf.drawString(
+        100,
+        y,
+        "Observações Técnicas:"
+    )
+
+    y -= 20
+
+    pdf.drawString(
+        120,
+        y,
+        (order.technical_notes or "-")[:100]
     )
 
     pdf.save()

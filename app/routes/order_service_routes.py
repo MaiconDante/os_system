@@ -190,6 +190,8 @@ def generate_pdf(order_id):
 
     y = 700
 
+    # CLIENTE
+
     pdf.setFont(
         "Helvetica-Bold",
         12
@@ -197,39 +199,47 @@ def generate_pdf(order_id):
 
     pdf.drawString(
         50,
-        680,
-        "DADOS DO CLIENTE"
+        620,
+        "CLIENTE"
     )
 
-    pdf.rect(
+
+    pdf.roundRect(
         45,
-        590,
+        530,
         500,
-        80
+        80,
+        8
     )
+
 
     pdf.setFont(
         "Helvetica",
         11
     )
 
+
     pdf.drawString(
         60,
-        650,
+        580,
         f"Nome: {order.client.name}"
     )
 
-    pdf.drawString(
-        60,
-        630,
-        f"Telefone: {order.client.phone or '-'}"
-    )
 
     pdf.drawString(
         60,
-        610,
+        560,
+        f"Telefone: {order.client.phone or '-'}"
+    )
+
+
+    pdf.drawString(
+        60,
+        540,
         f"E-mail: {order.client.email or '-'}"
     )
+
+    # DADOS DA ORDEM
 
     pdf.setFont(
         "Helvetica-Bold",
@@ -238,37 +248,43 @@ def generate_pdf(order_id):
 
     pdf.drawString(
         50,
-        560,
+        500,
         "DADOS DA ORDEM"
     )
 
-    pdf.rect(
+
+    pdf.roundRect(
         45,
-        470,
+        410,
         500,
-        80
+        80,
+        8
     )
+
 
     pdf.setFont(
         "Helvetica",
         11
     )
 
+
     pdf.drawString(
         60,
-        530,
+        460,
         f"Equipamento: {order.equipment}"
     )
 
-    pdf.drawString(
-        60,
-        510,
-        f"Status: {order.status}"
-    )
 
     pdf.drawString(
         60,
-        490,
+        440,
+        f"Status: {order.status}"
+    )
+
+
+    pdf.drawString(
+        60,
+        420,
         f"OS Nº: {order.id}"
     )
 
@@ -295,6 +311,41 @@ def generate_pdf(order_id):
     )
 
     y -= 40
+
+    pdf.setFont(
+        "Helvetica-Bold",
+        12
+    )
+
+    pdf.drawString(
+        50,
+        390,
+        "DESCRIÇÃO DO PROBLEMA"
+    )
+
+
+    pdf.rect(
+        45,
+        280,
+        500,
+        90
+    )
+
+
+    pdf.setFont(
+        "Helvetica",
+        11
+    )
+
+
+    descricao = order.description or "-"
+
+
+    pdf.drawString(
+        60,
+        340,
+        descricao[:90]
+    )
 
     pdf.save()
 

@@ -289,7 +289,7 @@ def generate_pdf(order_id):
 
     pdf.setFont(
         "Helvetica-Bold",
-        12
+        13
     )
 
     pdf.drawString(
@@ -335,7 +335,7 @@ def generate_pdf(order_id):
 
     pdf.setFont(
         "Helvetica-Bold",
-        12
+        13
     )
 
     pdf.drawString(
@@ -357,16 +357,20 @@ def generate_pdf(order_id):
         11
     )
 
-    pdf.drawString(
+    draw_wrapped_text(
+        pdf,
+        f"Título: {order.title}",
         60,
         490,
-        f"Título: {order.title}"
+        450
     )
 
-    pdf.drawString(
+    draw_wrapped_text(
+        pdf,
+        f"Equipamento: {order.equipment}",
         60,
-        470,
-        f"Equipamento: {order.equipment}"
+        460,
+        450
     )
 
     pdf.setFont(
@@ -421,7 +425,7 @@ def generate_pdf(order_id):
 
     pdf.setFont(
         "Helvetica-Bold",
-        12
+        13
     )
 
     pdf.drawString(
@@ -457,7 +461,7 @@ def generate_pdf(order_id):
 
     pdf.setFont(
         "Helvetica-Bold",
-        12
+        13
     )
 
     pdf.drawString(
@@ -493,7 +497,7 @@ def generate_pdf(order_id):
 
     pdf.setFont(
         "Helvetica-Bold",
-        12
+        13
     )
 
     pdf.drawString(

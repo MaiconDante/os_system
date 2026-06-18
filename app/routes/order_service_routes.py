@@ -7,6 +7,7 @@ from flask import (
     flash,
     send_file
 )
+from reportlab.pdfbase.pdfmetrics import stringWidth
 from reportlab.lib import colors
 import os
 from io import BytesIO
@@ -20,6 +21,52 @@ from flask_login import login_required
 
 # Blueprint para o módulo de ordem de serviço
 order_service_bp = Blueprint("order_service", __name__, url_prefix="/orders")
+
+def draw_wrapped_text(
+    pdf,
+    text,
+    x,
+    y,
+    max_width,
+    line_height=14
+):
+    words = text.split()
+
+    line = ""
+
+    for word in words:
+
+        test_line = f"{line} {word}".strip()
+
+        if stringWidth(
+            test_line,
+            "Helvetica",
+            11
+        ) < max_width:
+
+            line = test_line
+
+        else:
+
+            pdf.drawString(
+                x,
+                y,
+                line
+            )
+
+            y -= line_height
+
+            line = word
+
+    if line:
+
+        pdf.drawString(
+            x,
+            y,
+            line
+        )
+
+    return y
 
 # Rota para exibir a lista de ordens de serviço
 @order_service_bp.route("/")
@@ -330,25 +377,36 @@ def generate_pdf(order_id):
     pdf.drawString(
         60,
         450,
-        "Status:"
+        "STATUS:"
     )
 
     if order.status == "Aberto":
 
-        pdf.setFillColor(colors.orange)
+        pdf.setFillColor(
+            colors.orange
+        )
 
     elif order.status == "Em andamento":
 
-        pdf.setFillColor(colors.blue)
+        pdf.setFillColor(
+            colors.blue
+        )
 
     else:
 
-        pdf.setFillColor(colors.green)
+        pdf.setFillColor(
+            colors.green
+        )
+
+    pdf.setFont(
+        "Helvetica-Bold",
+        11
+    )
 
     pdf.drawString(
-        110,
+        120,
         450,
-        order.status
+        f"● {order.status.upper()}"
     )
 
     pdf.setFillColor(
@@ -385,13 +443,16 @@ def generate_pdf(order_id):
         11
     )
 
-    descricao = order.description or "-"
+    descricao = (
+        order.description or "-"
+    )
 
-    draw_multiline_text(
+    draw_wrapped_text(
         pdf,
         descricao,
         60,
-        340
+        340,
+        450
     )
 
     pdf.setFont(
@@ -418,13 +479,16 @@ def generate_pdf(order_id):
         11
     )
 
-    observacoes = order.technical_notes or "-"
+    observacoes = (
+        order.technical_notes or "-"
+    )
 
-    draw_multiline_text(
+    draw_wrapped_text(
         pdf,
         observacoes,
         60,
-        200
+        200,
+        450
     )
 
     pdf.setFont(

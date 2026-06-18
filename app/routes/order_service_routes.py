@@ -158,6 +158,25 @@ def details(order_id):
 @login_required
 def generate_pdf(order_id):
 
+    def draw_multiline_text(
+        pdf,
+        text,
+        x,
+        y,
+        line_height=15
+    ):
+        for line in text.split("\n"):
+
+            pdf.drawString(
+                x,
+                y,
+                line
+            )
+
+            y -= line_height
+
+        return y
+
     order = OrderService.query.get_or_404(
         order_id
     )
@@ -368,10 +387,11 @@ def generate_pdf(order_id):
 
     descricao = order.description or "-"
 
-    pdf.drawString(
+    draw_multiline_text(
+        pdf,
+        descricao,
         60,
-        330,
-        descricao[:90]
+        340
     )
 
     pdf.setFont(
@@ -400,10 +420,11 @@ def generate_pdf(order_id):
 
     observacoes = order.technical_notes or "-"
 
-    pdf.drawString(
+    draw_multiline_text(
+        pdf,
+        observacoes,
         60,
-        190,
-        observacoes[:90]
+        200
     )
 
     pdf.setFont(

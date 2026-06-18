@@ -508,6 +508,17 @@ def generate_pdf(order_id):
         "Assinatura do Cliente"
     )
 
+    pdf.setFont(
+        "Helvetica-Oblique",
+        8
+    )
+
+    pdf.drawCentredString(
+        300,
+        35,
+        f"Documento gerado em {datetime.now().strftime('%d/%m/%Y %H:%M')}"
+    )
+
     pdf.save()
 
     buffer.seek(0)

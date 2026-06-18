@@ -4,8 +4,11 @@ from flask import (
     request,
     redirect,
     url_for,
-    flash
+    flash,
+    send_file
 )
+from io import BytesIO
+from reportlab.pdfgen import canvas
 from datetime import datetime
 from app import db
 from app.models.order_service_model import OrderService
@@ -145,6 +148,59 @@ def details(order_id):
         "orders/details.html",
         order=order,
         service_time=service_time
+    )
+
+@order_service_bp.route(
+    "/<int:order_id>/pdf"
+)
+@login_required
+def generate_pdf(order_id):
+
+    order = OrderService.query.get_or_404(
+        order_id
+    )
+
+    buffer = BytesIO()
+
+    pdf = canvas.Canvas(buffer)
+
+    pdf.setTitle(
+        f"OS_{order.id}"
+    )
+
+    pdf.drawString(
+        100,
+        800,
+        f"ORDEM DE SERVIÇO Nº {order.id}"
+    )
+
+    pdf.drawString(
+        100,
+        770,
+        f"Cliente: {order.client.name}"
+    )
+
+    pdf.drawString(
+        100,
+        740,
+        f"Equipamento: {order.equipment}"
+    )
+
+    pdf.drawString(
+        100,
+        710,
+        f"Status: {order.status}"
+    )
+
+    pdf.save()
+
+    buffer.seek(0)
+
+    return send_file(
+        buffer,
+        as_attachment=False,
+        download_name=f"os_{order.id}.pdf",
+        mimetype="application/pdf"
     )
 
 # Rota para criar uma nova ordem de serviço

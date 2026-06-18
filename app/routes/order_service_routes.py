@@ -191,6 +191,88 @@ def generate_pdf(order_id):
 
     pdf.setFont(
         "Helvetica-Bold",
+        12
+    )
+
+    pdf.drawString(
+        50,
+        680,
+        "DADOS DO CLIENTE"
+    )
+
+    pdf.rect(
+        45,
+        590,
+        500,
+        80
+    )
+
+    pdf.setFont(
+        "Helvetica",
+        11
+    )
+
+    pdf.drawString(
+        60,
+        650,
+        f"Nome: {order.client.name}"
+    )
+
+    pdf.drawString(
+        60,
+        630,
+        f"Telefone: {order.client.phone or '-'}"
+    )
+
+    pdf.drawString(
+        60,
+        610,
+        f"E-mail: {order.client.email or '-'}"
+    )
+
+    pdf.setFont(
+        "Helvetica-Bold",
+        12
+    )
+
+    pdf.drawString(
+        50,
+        560,
+        "DADOS DA ORDEM"
+    )
+
+    pdf.rect(
+        45,
+        470,
+        500,
+        80
+    )
+
+    pdf.setFont(
+        "Helvetica",
+        11
+    )
+
+    pdf.drawString(
+        60,
+        530,
+        f"Equipamento: {order.equipment}"
+    )
+
+    pdf.drawString(
+        60,
+        510,
+        f"Status: {order.status}"
+    )
+
+    pdf.drawString(
+        60,
+        490,
+        f"OS Nº: {order.id}"
+    )
+
+    pdf.setFont(
+        "Helvetica-Bold",
         18
     )
 
@@ -212,76 +294,6 @@ def generate_pdf(order_id):
     )
 
     y -= 40
-
-    pdf.drawString(
-        100,
-        y,
-        f"Cliente: {order.client.name}"
-    )
-
-    y -= 25
-
-    pdf.drawString(
-        100,
-        y,
-        f"Telefone: {order.client.phone or '-'}"
-    )
-
-    y -= 25
-
-    pdf.drawString(
-        100,
-        y,
-        f"E-mail: {order.client.email or '-'}"
-    )
-
-    y -= 25
-
-    pdf.drawString(
-        100,
-        y,
-        f"Equipamento: {order.equipment}"
-    )
-
-    y -= 25
-
-    pdf.drawString(
-        100,
-        y,
-        f"Status: {order.status}"
-    )
-
-    y -= 40
-
-    pdf.drawString(
-        100,
-        y,
-        "Descrição:"
-    )
-
-    y -= 20
-
-    pdf.drawString(
-        120,
-        y,
-        order.description[:100]
-    )
-
-    y -= 40
-
-    pdf.drawString(
-        100,
-        y,
-        "Observações Técnicas:"
-    )
-
-    y -= 20
-
-    pdf.drawString(
-        120,
-        y,
-        (order.technical_notes or "-")[:100]
-    )
 
     pdf.save()
 

@@ -477,6 +477,37 @@ def generate_pdf(order_id):
         f"Tempo atendimento: {tempo_texto}"
     )
 
+    pdf.line(
+        80,
+        20,
+        250,
+        20
+    )
+
+    pdf.line(
+        340,
+        20,
+        510,
+        20
+    )
+
+    pdf.setFont(
+        "Helvetica",
+        10
+    )
+
+    pdf.drawCentredString(
+        165,
+        8,
+        "Assinatura do Técnico"
+    )
+
+    pdf.drawCentredString(
+        425,
+        8,
+        "Assinatura do Cliente"
+    )
+
     pdf.save()
 
     buffer.seek(0)

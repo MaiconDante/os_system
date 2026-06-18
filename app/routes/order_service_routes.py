@@ -175,13 +175,14 @@ def generate_pdf(order_id):
     if os.path.exists(logo_path):
 
         pdf.drawImage(
-            logo_path,
-            50,
-            740,
-            width=140,
-            height=45,
-            preserveAspectRatio=True
-        )
+        logo_path,
+        240,
+        730,
+        width=120,
+        height=60,
+        preserveAspectRatio=True,
+        mask="auto"
+    )
 
     pdf.setTitle(
         f"OS_{order.id}"
@@ -278,7 +279,7 @@ def generate_pdf(order_id):
 
     pdf.drawCentredString(
         300,
-        790,
+        700,
         "ORDEM DE SERVIÇO"
     )
 
@@ -289,7 +290,7 @@ def generate_pdf(order_id):
 
     pdf.drawCentredString(
         300,
-        770,
+        680,
         f"Nº {order.id}"
     )
 

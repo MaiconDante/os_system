@@ -510,6 +510,19 @@ def generate_pdf(order_id):
         8
     )
 
+    pdf.line(
+        210,
+        45,
+        210,
+        95
+    )
+
+    pdf.line(
+        390,
+        45,
+        390,
+        95
+    )
 
     pdf.setFont(
         "Helvetica",
@@ -566,38 +579,64 @@ def generate_pdf(order_id):
         tempo_texto = "Em andamento"
 
 
+    pdf.setFont(
+        "Helvetica-Bold",
+        9
+    )
+
     pdf.drawString(
         60,
         80,
-        f"Abertura: {abertura}"
+        "ABERTURA"
     )
 
-
     pdf.drawString(
-        230,
+        240,
         80,
-        f"Encerramento: {encerramento}"
+        "ENCERRAMENTO"
     )
 
+    pdf.drawString(
+        420,
+        80,
+        "TEMPO"
+    )
+
+    pdf.setFont(
+        "Helvetica",
+        9
+    )
 
     pdf.drawString(
         60,
-        60,
-        f"Tempo atendimento: {tempo_texto}"
+        62,
+        abertura
+    )
+
+    pdf.drawString(
+        240,
+        62,
+        encerramento
+    )
+
+    pdf.drawString(
+        420,
+        62,
+        tempo_texto
     )
 
     pdf.line(
         70,
-        20,
+        18,
         240,
-        20
+        18
     )
 
     pdf.line(
         350,
-        20,
+        18,
         520,
-        20
+        18
     )
 
     pdf.setFont(
@@ -607,13 +646,13 @@ def generate_pdf(order_id):
 
     pdf.drawCentredString(
         155,
-        8,
+        2,
         "Assinatura do Técnico"
     )
 
     pdf.drawCentredString(
         435,
-        8,
+        2,
         "Assinatura do Cliente"
     )
 

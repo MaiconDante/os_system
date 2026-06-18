@@ -347,6 +347,136 @@ def generate_pdf(order_id):
         descricao[:90]
     )
 
+    pdf.setFont(
+        "Helvetica-Bold",
+        12
+    )
+
+    pdf.drawString(
+        50,
+        250,
+        "OBSERVAÇÕES TÉCNICAS"
+    )
+
+
+    pdf.rect(
+        45,
+        150,
+        500,
+        80
+    )
+
+
+    pdf.setFont(
+        "Helvetica",
+        11
+    )
+
+
+    observacoes = order.technical_notes or "-"
+
+
+    pdf.drawString(
+        60,
+        200,
+        observacoes[:90]
+    )
+
+    pdf.setFont(
+        "Helvetica-Bold",
+        12
+    )
+
+    pdf.drawString(
+        50,
+        120,
+        "INFORMAÇÕES DO ATENDIMENTO"
+    )
+
+
+    pdf.rect(
+        45,
+        40,
+        500,
+        60
+    )
+
+
+    pdf.setFont(
+        "Helvetica",
+        11
+    )
+
+
+    abertura = order.created_at.strftime(
+        "%d/%m/%Y %H:%M"
+    )
+
+
+    if order.closed_at:
+
+        encerramento = order.closed_at.strftime(
+            "%d/%m/%Y %H:%M"
+        )
+
+        tempo = order.closed_at - order.created_at
+
+        dias = tempo.days
+
+        horas = tempo.seconds // 3600
+
+        minutos = (
+            tempo.seconds % 3600
+        ) // 60
+
+
+        if dias > 0:
+
+            tempo_texto = (
+                f"{dias} dia(s) e "
+                f"{horas} hora(s)"
+            )
+
+        elif horas > 0:
+
+            tempo_texto = (
+                f"{horas} hora(s) e "
+                f"{minutos} minuto(s)"
+            )
+
+        else:
+
+            tempo_texto = (
+                f"{minutos} minuto(s)"
+            )
+
+    else:
+
+        encerramento = "Em aberto"
+
+        tempo_texto = "Em andamento"
+
+
+    pdf.drawString(
+        60,
+        80,
+        f"Abertura: {abertura}"
+    )
+
+
+    pdf.drawString(
+        230,
+        80,
+        f"Encerramento: {encerramento}"
+    )
+
+
+    pdf.drawString(
+        60,
+        60,
+        f"Tempo atendimento: {tempo_texto}"
+    )
+
     pdf.save()
 
     buffer.seek(0)

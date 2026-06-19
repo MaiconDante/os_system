@@ -291,14 +291,14 @@ Detalhes da Ordem de Serviço
         Voltar
     </a>
 
-    <button
-        type="button"
+    <a
+        href="{{ url_for('order_service.generate_pdf', order_id=order.id) }}"
         class="btn btn-primary"
-        onclick="window.print()"
+        target="_blank"
     >
-        <i class="bi bi-printer"></i>
-        Imprimir
-    </button>
+        <i class="bi bi-file-earmark-pdf"></i>
+        Gerar PDF
+    </a>
 
 </div>
 

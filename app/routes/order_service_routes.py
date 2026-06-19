@@ -283,6 +283,24 @@ def generate_pdf(order_id):
         f"Nº {order.id}"
     )
 
+    pdf.setFont(
+        "Helvetica-Bold",
+        11
+    )
+
+    pdf.drawRightString(
+        540,
+        y - 25,
+        f"Status: {order.status}"
+    )
+
+    pdf.line(
+        50,
+        y - 45,
+        550,
+        y - 45
+    )
+
     # =========================
     # CLIENTE
     # =========================
@@ -369,7 +387,7 @@ def generate_pdf(order_id):
         pdf,
         f"Equipamento: {order.equipment}",
         60,
-        460,
+        470,
         450
     )
 
@@ -668,7 +686,26 @@ def generate_pdf(order_id):
     pdf.drawCentredString(
         300,
         35,
-        f"Documento gerado em {datetime.now().strftime('%d/%m/%Y %H:%M')}"
+        "Documento gerado automaticamente pelo sistema"
+    )
+
+    pdf.drawCentredString(
+        300,
+        22,
+        datetime.now().strftime(
+            "%d/%m/%Y %H:%M"
+        )
+    )
+
+    pdf.setFont(
+        "Helvetica",
+        8
+    )
+
+    pdf.drawRightString(
+        550,
+        22,
+        "Página 1"
     )
 
     pdf.save()
